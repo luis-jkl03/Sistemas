@@ -37,7 +37,7 @@ public class datosHuella{
     }
     
     public datosHuella(JLabel labHuella){
-        
+         crearFhuella();
         eti=labHuella;
           getInicializar();
     }
@@ -113,7 +113,7 @@ public class datosHuella{
      
      public void crearFhuella ()
      {
-         File folder= new File("C:\\");
+         File folder= new File("C:\\HUELLAS");
          
          
          folder.mkdirs();
