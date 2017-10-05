@@ -11,6 +11,7 @@ import com.digitalpersona.onetouch.processing.DPFPEnrollment;
 import com.digitalpersona.onetouch.processing.DPFPFeatureExtraction;
 import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
 import java.awt.Image;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -108,5 +109,15 @@ public class datosHuella{
             )
          );
               
+     }
+     
+     public void crearFhuella ()
+     {
+         File folder= new File("C:\\");
+         
+         
+         folder.mkdirs();
+         
+         
      }
 }

@@ -40,11 +40,7 @@ public class LecPant extends javax.swing.JFrame{
         Lector.startCapture();
     }
     
-   /* public void etiqueta()
-    {
-      
-        et=labHuella;
-    }*/
+ 
             
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
