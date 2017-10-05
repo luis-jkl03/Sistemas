@@ -10,10 +10,15 @@ import com.digitalpersona.onetouch.capture.event.DPFPDataListener;
 import com.digitalpersona.onetouch.processing.DPFPEnrollment;
 import com.digitalpersona.onetouch.processing.DPFPFeatureExtraction;
 import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -108,16 +113,38 @@ public class datosHuella{
          huella.getScaledInstance(eti.getWidth(),eti.getHeight(),Image.SCALE_DEFAULT)
             )
          );
+         
+         //File fichero = new File("foto.jpg");
+		String formato = "bmp";
+
+		// Get icon from label
+                ImageIcon icon = (ImageIcon) eti.getIcon();
+                
+                // Copy image
+                BufferedImage image = new BufferedImage(icon.getIconWidth(),
+                        icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+                Graphics2D g2 = image.createGraphics();
+                g2.drawImage(icon.getImage(), 0, 0, icon.getImageObserver());
+                g2.dispose();
+           try {
+               // Write image
+               ImageIO.write(image, formato, crearFhuella());
+           } catch (IOException ex) {
+               Logger.getLogger(datosHuella.class.getName()).log(Level.SEVERE, null, ex);
+           }
+         
+         
+         
               
      }
      
-     public void crearFhuella ()
+     public File crearFhuella ()
      {
-         File folder= new File("C:\\HUELLAS");
-         
-         
+         File folder= new File("C:\\HUELLAS\\fot.jpg");
          folder.mkdirs();
          
+         System.out.println(folder.getPath());
          
+         return folder;
      }
 }
