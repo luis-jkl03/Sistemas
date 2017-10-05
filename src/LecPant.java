@@ -22,7 +22,7 @@ public class LecPant extends javax.swing.JFrame{
    public imagenQuality imQuality;
    public datosHuella datHuella;
    public datosHuella datHuellas;
-
+   public ConexionBase conBase=new ConexionBase();
    
    
     public LecPant() {
