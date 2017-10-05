@@ -37,6 +37,7 @@ public class LecPant extends javax.swing.JFrame{
         datHuella = new datosHuella();
         
         datHuellas=new datosHuella(labHuella);
+        
         Lector.startCapture();
     }
     
