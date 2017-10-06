@@ -1,3 +1,5 @@
+package Classes;
+
 
 import com.digitalpersona.onetouch.DPFPGlobal;
 import com.digitalpersona.onetouch.capture.DPFPCapture;

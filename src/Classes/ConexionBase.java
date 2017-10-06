@@ -1,3 +1,5 @@
+package Classes;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,17 +11,17 @@ import java.util.logging.Logger;
 
 
 public class ConexionBase {
-      String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    String url = "jdbc:sqlserver://zele:1433;databaseName=CLINICA5NM80";
-    String user = "sele";
-    String pass = "123";
+    static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    static String url = "jdbc:sqlserver://zele:1433;databaseName=CLINICA5NM80";
+    static String user = "sele";
+    static String pass = "123";
     
     public ConexionBase(){
-        getConection();
+        //getConection();
        
     }
     
-    public Connection getConection(){
+    public static Connection getConection(){
         Connection con = null;
         try {
             Class.forName(driver);

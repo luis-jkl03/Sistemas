@@ -1,3 +1,5 @@
+package Classes;
+
 
 import com.digitalpersona.onetouch.DPFPData;
 import com.digitalpersona.onetouch.DPFPDataPurpose;
@@ -15,7 +17,11 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -61,7 +67,7 @@ public class datosHuella{
                        System.out.println("Imagen Capturada");
                        procesoImagen(e.getSample());
                        
-                       GuardarHuella(CrearImagenHuella(e.getSample()));
+                       GuardarHuellaEnPath(CrearImagenHuella(e.getSample()));
                    } catch (DPFPImageQualityException ex) {
                        JOptionPane.showMessageDialog(null, "COLOQUE LA HUELLA CORRETAMENTE, POR FAVOR", null, ERROR_MESSAGE);
                        Reclutador.clear();
@@ -107,7 +113,7 @@ public class datosHuella{
     public Image CrearImagenHuella(DPFPSample muestra){
   return DPFPGlobal.getSampleConversionFactory().createImage(muestra);
 }
-     public void  GuardarHuella(Image huella){
+     public void  GuardarHuellaEnPath(Image huella){
          eti.setIcon(
          new ImageIcon(         
          huella.getScaledInstance(eti.getWidth(),eti.getHeight(),Image.SCALE_DEFAULT)
@@ -131,11 +137,7 @@ public class datosHuella{
                ImageIO.write(image, formato, crearFhuella());
            } catch (IOException ex) {
                Logger.getLogger(datosHuella.class.getName()).log(Level.SEVERE, null, ex);
-           }
-         
-         
-         
-              
+           }              
      }
      
      public File crearFhuella ()
@@ -147,4 +149,39 @@ public class datosHuella{
          
          return folder;
      }
+     
+    public boolean escribirImagenEnBD(String dirArchivo, String nomArchivo, String sentenciaSQL) { 
+        boolean rpta=false; 
+        Connection con = ConexionBase.getConection();
+        try {
+        File fichero = new File(dirArchivo); 
+        FileInputStream streamEntrada = new FileInputStream(fichero); 
+        PreparedStatement pstmt = con.prepareStatement(sentenciaSQL); 
+        int len = streamEntrada.available(); 
+        //Nombre del archivo 
+        pstmt.setString(1, nomArchivo); 
+        //longitud de la imagen 
+        pstmt.setInt(2,len); 
+        //Imagen a guardar 
+        pstmt.setBinaryStream(3, streamEntrada, (int)fichero.length()); 
+        pstmt.executeUpdate(); 
+        pstmt.close(); 
+        streamEntrada.close(); 
+        rpta=true; 
+        } 
+        catch(Exception e) { 
+        e.printStackTrace(); 
+        }finally{
+            try {
+                if(!con.isClosed()){
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(datosHuella.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } 
+        return rpta; 
+    }
+     
+     
 }
