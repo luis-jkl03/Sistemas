@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public class ConexionBase {
     static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    static String url = "jdbc:sqlserver://zele:1433;databaseName=CLINICA5NM80";
+    static String url = "jdbc:sqlserver://localhost:1433;databaseName=CLINICA5NM80";
     static String user = "sele";
     static String pass = "123";
     

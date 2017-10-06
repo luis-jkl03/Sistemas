@@ -18,10 +18,13 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -37,7 +40,8 @@ public class datosHuella{
     
        private DPFPEnrollment Reclutador = DPFPGlobal.getEnrollmentFactory().createEnrollment(); 
        public DPFPFeatureSet featureSetInscripcion;
-        JLabel eti;
+       JLabel eti;
+       Properties p;
     //   public LecPant pant = new LecPant();
        
      
@@ -48,9 +52,16 @@ public class datosHuella{
     }
     
     public datosHuella(JLabel labHuella){
-         crearFhuella();
         eti=labHuella;
-          getInicializar();
+        getInicializar();
+          
+        p = new Properties();
+        try {
+            p.load(new FileReader("src/Classes/globales.properties"));
+            //System.out.println(p.getProperty("rutaImagenesJPG"));
+        } catch (IOException ex) {
+            Logger.getLogger(datosHuella.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void getInicializar() {
@@ -67,7 +78,7 @@ public class datosHuella{
                        System.out.println("Imagen Capturada");
                        procesoImagen(e.getSample());
                        
-                       GuardarHuellaEnPath(CrearImagenHuella(e.getSample()));
+                       GuardarHuellaEnPath(CrearImagenHuella(e.getSample()), "jpg");
                    } catch (DPFPImageQualityException ex) {
                        JOptionPane.showMessageDialog(null, "COLOQUE LA HUELLA CORRETAMENTE, POR FAVOR", null, ERROR_MESSAGE);
                        Reclutador.clear();
@@ -113,18 +124,10 @@ public class datosHuella{
     public Image CrearImagenHuella(DPFPSample muestra){
   return DPFPGlobal.getSampleConversionFactory().createImage(muestra);
 }
-     public void  GuardarHuellaEnPath(Image huella){
-         eti.setIcon(
-         new ImageIcon(         
-         huella.getScaledInstance(eti.getWidth(),eti.getHeight(),Image.SCALE_DEFAULT)
-            )
-         );
-         
-         //File fichero = new File("foto.jpg");
-		String formato = "bmp";
-
+     public void  GuardarHuellaEnPath(Image huella, String formato){
+        eti.setIcon(new ImageIcon(huella.getScaledInstance(eti.getWidth(),eti.getHeight(),Image.SCALE_DEFAULT)));
 		// Get icon from label
-                ImageIcon icon = (ImageIcon) eti.getIcon();
+        ImageIcon icon = (ImageIcon) eti.getIcon();
                 
                 // Copy image
                 BufferedImage image = new BufferedImage(icon.getIconWidth(),
@@ -132,22 +135,26 @@ public class datosHuella{
                 Graphics2D g2 = image.createGraphics();
                 g2.drawImage(icon.getImage(), 0, 0, icon.getImageObserver());
                 g2.dispose();
+                
+                File fichero = null;
+                if(formato.equals("jpg")){
+                    fichero = new File(p.getProperty("rutaImagenesJPG"));
+                }
+                else if(formato.equals("bmp")){
+                    fichero = new File(p.getProperty("rutaImagenesBMP"));
+                }
+                System.out.println(fichero.getAbsolutePath());
            try {
+               fichero.mkdirs();
                // Write image
-               ImageIO.write(image, formato, crearFhuella());
+               fichero = new File(fichero.getAbsolutePath() + "\\foto." + formato);
+               System.out.println("--> " + fichero);
+               ImageIO.write(image, formato, fichero);
            } catch (IOException ex) {
                Logger.getLogger(datosHuella.class.getName()).log(Level.SEVERE, null, ex);
            }              
-     }
-     
-     public File crearFhuella ()
-     {
-         File folder= new File("C:\\HUELLAS\\fot.jpg");
-         folder.mkdirs();
-         
-         System.out.println(folder.getPath());
-         
-         return folder;
+           escribirImagenEnBD(fichero.getAbsolutePath(), "foto." + formato, "INSERT INTO HUELLAPACIENTE(FOT_HUELLA)"
+                   + " VALUES (?)");
      }
      
     public boolean escribirImagenEnBD(String dirArchivo, String nomArchivo, String sentenciaSQL) { 
@@ -156,14 +163,9 @@ public class datosHuella{
         try {
         File fichero = new File(dirArchivo); 
         FileInputStream streamEntrada = new FileInputStream(fichero); 
-        PreparedStatement pstmt = con.prepareStatement(sentenciaSQL); 
-        int len = streamEntrada.available(); 
-        //Nombre del archivo 
-        pstmt.setString(1, nomArchivo); 
-        //longitud de la imagen 
-        pstmt.setInt(2,len); 
+        PreparedStatement pstmt = con.prepareStatement(sentenciaSQL);  
         //Imagen a guardar 
-        pstmt.setBinaryStream(3, streamEntrada, (int)fichero.length()); 
+        pstmt.setBinaryStream(1, streamEntrada, (int)fichero.length()); 
         pstmt.executeUpdate(); 
         pstmt.close(); 
         streamEntrada.close(); 
