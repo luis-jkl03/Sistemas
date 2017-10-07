@@ -11,4 +11,5 @@ package Classes;
  */
 public class hazloTodo {
     
+    int ft;
 }
