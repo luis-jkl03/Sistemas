@@ -1,10 +1,12 @@
 package Classes;
 
 
+import Interfaces.LecPant;
 import com.digitalpersona.onetouch.DPFPGlobal;
 import com.digitalpersona.onetouch.capture.DPFPCapture;
 import com.digitalpersona.onetouch.capture.event.DPFPReaderStatusAdapter;
 import com.digitalpersona.onetouch.capture.event.DPFPReaderStatusEvent;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 
@@ -32,6 +34,7 @@ public class EstadoLector {
         @Override
         public void run() {
             System.out.println("El sensor de huella dactilar se encuentra Desactivado");
+            JOptionPane.showMessageDialog(null, "El lector se encuentra desconectado");
         }
       });
     }

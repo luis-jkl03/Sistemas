@@ -15,7 +15,7 @@ public class ConexionBase {
     static String url = "jdbc:sqlserver://localhost:1433;databaseName=CLINICA5NM80";
     static String user = "sele";
     static String pass = "123";
-    String gg;
+    
     public ConexionBase(){
         //getConection();
        
@@ -30,24 +30,7 @@ public class ConexionBase {
             Logger.getLogger(ConexionBase.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(ConexionBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
-            PreparedStatement st = con.prepareStatement("select * from HUELLAPACIENTE");
-            ResultSet rs = st.executeQuery();
-            
-            while(rs.next()){
-                System.out.println("1 --> " + rs.getString(1));
-                System.out.println("2 --> " + rs.getString(2));
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(ConexionBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        }      
         return con;
     }
-    
-    
 }

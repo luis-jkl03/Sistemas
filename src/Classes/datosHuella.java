@@ -1,6 +1,8 @@
 package Classes;
 
 
+import Interfaces.Expediente;
+import Interfaces.LecPant;
 import com.digitalpersona.onetouch.DPFPData;
 import com.digitalpersona.onetouch.DPFPDataPurpose;
 import com.digitalpersona.onetouch.DPFPFeatureSet;
@@ -25,6 +27,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -32,6 +35,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.text.StyleConstants;
 
@@ -41,7 +45,11 @@ public class datosHuella{
        private DPFPEnrollment Reclutador = DPFPGlobal.getEnrollmentFactory().createEnrollment(); 
        public DPFPFeatureSet featureSetInscripcion;
        JLabel eti;
+       JTextField expHu;
        Properties p;
+       Vector vec;
+       File fichero;
+       String formato;
     //   public LecPant pant = new LecPant();
        
      
@@ -51,10 +59,12 @@ public class datosHuella{
       //  getInicializar(); 
     }
     
-    public datosHuella(JLabel labHuella){
+    public datosHuella(JLabel labHuella, JTextField expHuella,Vector vecpant){
+        
         eti=labHuella;
-        getInicializar();
-          
+        expHu=expHuella;
+        vec = vecpant;
+        getInicializar();        
         p = new Properties();
         try {
             p.load(new FileReader("src/Classes/globales.properties"));
@@ -99,11 +109,12 @@ public class datosHuella{
             
             case TEMPLATE_STATUS_READY:
                 JOptionPane.showMessageDialog(null, "La huella se tomo con exito");
+                //escribirImagenEnBD(fichero.getAbsolutePath(),LecPant.expediente + formato, "INSERT INTO HUELLAPACIENTE(EXPEDIENTE,NOM_PACIENTE,NO_HUELLA,FOT_HUELLA)" + " VALUES (?,?,?,?)");
+
                 Reclutador.clear();
                 break;
                 
             case TEMPLATE_STATUS_INSUFFICIENT:
-                
                 break;
             case TEMPLATE_STATUS_FAILED:
                 //JOptionPane.showMessageDialog(null,"Ocurrio un error capture nuevamente la huella", null, ERROR_MESSAGE);
@@ -122,9 +133,11 @@ public class datosHuella{
             return extractor.createFeatureSet(muestra, motivo);
 }
     public Image CrearImagenHuella(DPFPSample muestra){
+        //System.out.println("4 veces");
   return DPFPGlobal.getSampleConversionFactory().createImage(muestra);
 }
      public void  GuardarHuellaEnPath(Image huella, String formato){
+         
         eti.setIcon(new ImageIcon(huella.getScaledInstance(eti.getWidth(),eti.getHeight(),Image.SCALE_DEFAULT)));
 		// Get icon from label
         ImageIcon icon = (ImageIcon) eti.getIcon();
@@ -147,29 +160,36 @@ public class datosHuella{
            try {
                fichero.mkdirs();
                // Write image
-               fichero = new File(fichero.getAbsolutePath() + "\\foto." + formato);
+               //fichero = new File(fichero.getAbsolutePath() +"\\foto." + formato);
+               fichero = new File(fichero.getAbsolutePath() +LecPant.expediente+"."+ formato);
+              // bool= fichero.renameTo();
                System.out.println("--> " + fichero);
                ImageIO.write(image, formato, fichero);
+               this.fichero = fichero;
+               this.formato = formato;
            } catch (IOException ex) {
                Logger.getLogger(datosHuella.class.getName()).log(Level.SEVERE, null, ex);
            }              
-           escribirImagenEnBD(fichero.getAbsolutePath(), "foto." + formato, "INSERT INTO HUELLAPACIENTE(FOT_HUELLA)"
-                   + " VALUES (?)");
      }
      
     public boolean escribirImagenEnBD(String dirArchivo, String nomArchivo, String sentenciaSQL) { 
         boolean rpta=false; 
         Connection con = ConexionBase.getConection();
         try {
+        insertarPersonales();
         File fichero = new File(dirArchivo); 
         FileInputStream streamEntrada = new FileInputStream(fichero); 
-        PreparedStatement pstmt = con.prepareStatement(sentenciaSQL);  
+        PreparedStatement pstmt = con.prepareStatement(sentenciaSQL);
+        pstmt.setInt(1, Integer.parseInt(vec.get(0).toString())); 
+        pstmt.setString(2, vec.get(1).toString()); 
+        pstmt.setInt(3, 1); 
         //Imagen a guardar 
-        pstmt.setBinaryStream(1, streamEntrada, (int)fichero.length()); 
+        pstmt.setBinaryStream(4, streamEntrada, (int)fichero.length()); 
         pstmt.executeUpdate(); 
         pstmt.close(); 
         streamEntrada.close(); 
         rpta=true; 
+        JOptionPane.showMessageDialog(null, "Datos ingresados exitosamente");
         } 
         catch(Exception e) { 
         e.printStackTrace(); 
@@ -184,6 +204,41 @@ public class datosHuella{
         } 
         return rpta; 
     }
-     
-     
+    
+    private void insertarPersonales(){
+          Connection con= ConexionBase.getConection();                        
+        try {
+           
+            PreparedStatement st= con.prepareStatement("insert into PERPACIENTE values(?,?,?,?,?,?)");
+            st.setString(1,vec.get(1).toString());
+            st.setInt(2, Integer.parseInt(vec.get(2).toString()));
+            st.setString(3, vec.get(3).toString());
+            st.setString(4, vec.get(4).toString());
+            st.setString(5, vec.get(5).toString());
+            st.setString(6, vec.get(6).toString());
+            st.execute();
+            //JOptionPane.showMessageDialog(null, "Datos insertados correctamente");
+            //asignarExpediente();
+            //bloquear(true);
+            //JOptionPane.showMessageDialog(, "POR FAVOR CAPTURE LA HUELLA DEL PACIENTE");
+            
+        } catch (SQLException ex) {
+            //Logger.getLogger(Expediente.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Ocurrio un error, verifique los datos e intente de nuevo");
+        }finally{
+             try {
+                 if(!con.isClosed())
+                     
+                     con.close();
+             } catch (SQLException ex) {
+                 Logger.getLogger(Expediente.class.getName()).log(Level.SEVERE, null, ex);
+             }
+                    
+        }  
+    }
+    
+    public void insertarTablas(){
+         escribirImagenEnBD(fichero.getAbsolutePath(),LecPant.expediente + formato, "INSERT INTO HUELLAPACIENTE(EXPEDIENTE,NOM_PACIENTE,NO_HUELLA,FOT_HUELLA)" + " VALUES (?,?,?,?)");
+
+    }
 }

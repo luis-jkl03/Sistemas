@@ -1,6 +1,7 @@
 package Classes;
 
 
+import Interfaces.LecPant;
 import com.digitalpersona.onetouch.DPFPGlobal;
 import com.digitalpersona.onetouch.capture.DPFPCapture;
 import com.digitalpersona.onetouch.capture.event.DPFPSensorAdapter;
