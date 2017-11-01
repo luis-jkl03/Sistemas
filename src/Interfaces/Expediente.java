@@ -18,6 +18,7 @@ public class Expediente extends javax.swing.JFrame {
     ConexionBase conexion= new ConexionBase();
     
     public Expediente() {
+        JOptionPane.showMessageDialog(null,"TE AMO MUCHO CHUBB <3 <3");
         initComponents();
             asignarExpediente();        
             textExp.setEditable(false);

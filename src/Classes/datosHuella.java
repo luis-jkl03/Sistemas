@@ -25,6 +25,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Vector;
@@ -88,7 +89,7 @@ public class datosHuella{
                        System.out.println("Imagen Capturada");
                        procesoImagen(e.getSample());
                        
-                       GuardarHuellaEnPath(CrearImagenHuella(e.getSample()), "jpg");
+                       GuardarHuellaEnPath(CrearImagenHuella(e.getSample()), "fpt");
                    } catch (DPFPImageQualityException ex) {
                        JOptionPane.showMessageDialog(null, "COLOQUE LA HUELLA CORRETAMENTE, POR FAVOR", null, ERROR_MESSAGE);
                        Reclutador.clear();
@@ -102,15 +103,24 @@ public class datosHuella{
     
     private void procesoImagen(DPFPSample muestra) throws DPFPImageQualityException,IllegalStateException{
         featureSetInscripcion = extraerCaracteristicas(muestra, DPFPDataPurpose.DATA_PURPOSE_ENROLLMENT);
+        File archivo;
+       System.out.println("otsss: "+featureSetInscripcion);
+       
         if(featureSetInscripcion != null){
-                Reclutador.addFeatures(featureSetInscripcion);        
+                Reclutador.addFeatures(featureSetInscripcion);      
+                
         EstadoHuellas();
         switch(Reclutador.getTemplateStatus()){
             
             case TEMPLATE_STATUS_READY:
+                
+                String desktop;
+                desktop="RECLUUU"+Reclutador.getTemplate();
+                System.out.println(desktop);
                 JOptionPane.showMessageDialog(null, "La huella se tomo con exito");
+                
+                
                 //escribirImagenEnBD(fichero.getAbsolutePath(),LecPant.expediente + formato, "INSERT INTO HUELLAPACIENTE(EXPEDIENTE,NOM_PACIENTE,NO_HUELLA,FOT_HUELLA)" + " VALUES (?,?,?,?)");
-
                 Reclutador.clear();
                 break;
                 
@@ -156,11 +166,14 @@ public class datosHuella{
                 else if(formato.equals("bmp")){
                     fichero = new File(p.getProperty("rutaImagenesBMP"));
                 }
+                else if(formato.equals("fpt")){
+                    fichero = new File(p.getProperty("rutaImagenesFPT"));
+                }
+                
                 System.out.println(fichero.getAbsolutePath());
            try {
                fichero.mkdirs();
-               // Write image
-               //fichero = new File(fichero.getAbsolutePath() +"\\foto." + formato);
+               // Write images
                fichero = new File(fichero.getAbsolutePath() +LecPant.expediente+"."+ formato);
               // bool= fichero.renameTo();
                System.out.println("--> " + fichero);
@@ -176,15 +189,19 @@ public class datosHuella{
         boolean rpta=false; 
         Connection con = ConexionBase.getConection();
         try {
-        insertarPersonales();
+       // insertarPersonales();
         File fichero = new File(dirArchivo); 
         FileInputStream streamEntrada = new FileInputStream(fichero); 
+        
+            System.out.println(fichero);
+            System.out.println(streamEntrada);
+        
         PreparedStatement pstmt = con.prepareStatement(sentenciaSQL);
         pstmt.setInt(1, Integer.parseInt(vec.get(0).toString())); 
         pstmt.setString(2, vec.get(1).toString()); 
         pstmt.setInt(3, 1); 
         //Imagen a guardar 
-        pstmt.setBinaryStream(4, streamEntrada, (int)fichero.length()); 
+        pstmt.setBinaryStream(4, streamEntrada, (int)fichero.length());
         pstmt.executeUpdate(); 
         pstmt.close(); 
         streamEntrada.close(); 
@@ -238,7 +255,7 @@ public class datosHuella{
     }
     
     public void insertarTablas(){
-         escribirImagenEnBD(fichero.getAbsolutePath(),LecPant.expediente + formato, "INSERT INTO HUELLAPACIENTE(EXPEDIENTE,NOM_PACIENTE,NO_HUELLA,FOT_HUELLA)" + " VALUES (?,?,?,?)");
+        // escribirImagenEnBD(fichero.getAbsolutePath(),LecPant.expediente + formato, "INSERT INTO HUELLAPACIENTE(EXPEDIENTE,NOM_PACIENTE,NO_HUELLA,FOT_HUELLA)" + " VALUES (?,?,?,?)");
 
     }
 }
