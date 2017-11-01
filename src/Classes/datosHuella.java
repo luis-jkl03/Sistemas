@@ -14,6 +14,7 @@ import com.digitalpersona.onetouch.capture.event.DPFPDataListener;
 import com.digitalpersona.onetouch.processing.DPFPEnrollment;
 import com.digitalpersona.onetouch.processing.DPFPFeatureExtraction;
 import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
+import com.digitalpersona.onetouch.processing.DPFPTemplateStatus;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -21,6 +22,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -180,6 +182,14 @@ public class datosHuella{
                ImageIO.write(image, formato, fichero);
                this.fichero = fichero;
                this.formato = formato;
+               
+               if(formato.equals("fpt") && Reclutador.getTemplateStatus() == DPFPTemplateStatus.TEMPLATE_STATUS_READY){
+                  File file = new File(fichero + "h-" + expHu.getText() + ".fpt");
+                  FileOutputStream stream = new FileOutputStream(file);
+                  stream.write(Reclutador.getTemplate().serialize());
+		  stream.close();
+               }
+               
            } catch (IOException ex) {
                Logger.getLogger(datosHuella.class.getName()).log(Level.SEVERE, null, ex);
            }              
