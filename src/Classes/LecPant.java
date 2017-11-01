@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 public class LecPant extends javax.swing.JFrame{
 
     //private DPFPCapture Lector = DPFPGlobal.getCaptureFactory().createCapture();
-    
+    int g;
    public static DPFPCapture Lector = DPFPGlobal.getCaptureFactory().createCapture();    
     
    public EstadoLector estLector;
