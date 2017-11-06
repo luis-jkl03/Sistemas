@@ -1,6 +1,8 @@
 package Interfaces;
 
 import Classes.ConexionBase;
+import com.digitalpersona.onetouch.DPFPGlobal;
+import com.digitalpersona.onetouch.DPFPTemplate;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -116,54 +118,34 @@ public class ValidarHuella extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        FileWriter fw = null;
-        FileOutputStream stream = null;
-        InputStream is = null;
-        File file = null;
         Connection con = null;
         try {
-            file = new File(path + "huella.fpt"); //************Archivo q se creara************
-            if(!file.exists()){
-                fw = new FileWriter(file); //***********Si no existe entonces crea el archivo**************
-                System.out.println("Se abre");
-            }
             int cantidad = 1024 * 4;
             con = ConexionBase.getConection();
-            PreparedStatement ps = con.prepareStatement("select * from huellapaciente where expediente = 27");
+            PreparedStatement ps = con.prepareStatement("select * from huellapaciente");
             ResultSet rs = ps.executeQuery();
+            long ini = System.currentTimeMillis();
             while(rs.next()){
-                is = new BufferedInputStream(rs.getBinaryStream(5), cantidad); //************Lectura de bytes
-                stream = new FileOutputStream(file);
-                long ini = System.currentTimeMillis();
-                int i = is.read();
-                while (i != -1){
-                    stream.write(i);
-                    i = is.read();
-                }
-                long fin = System.currentTimeMillis();
-                System.out.println("tardo --> " + (fin - ini));
+                //InputStream stream = new BufferedInputStream(rs.getBinaryStream(5), cantidad); //************Lectura de bytes
+                InputStream stream = rs.getBinaryStream(5);
+                byte[] data = new byte[stream.available()];
+                stream.read(data);
+                stream.close();
+                DPFPTemplate t = DPFPGlobal.getTemplateFactory().createTemplate();
+                t.deserialize(data);
+                //setTemplate(t);
             }
+            long fin = System.currentTimeMillis();
+            System.out.println("tardo --> " + (fin - ini));
         } catch (SQLException ex) {
-            Logger.getLogger(ValidarHuella.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (FileNotFoundException ex) {
             Logger.getLogger(ValidarHuella.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ValidarHuella.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             try {
-                if(stream != null)
-                    stream.close();
-                if(is != null)
-                    is.close();
-                if(fw != null)
-                    fw.close();
-                if(file != null)
-                    file.deleteOnExit();
                 if(con != null)
                     con.close();
-            } catch (IOException ex) {
-                Logger.getLogger(ValidarHuella.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
+            }catch (SQLException ex) {
                 Logger.getLogger(ValidarHuella.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

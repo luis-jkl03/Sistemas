@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 public class Expediente extends javax.swing.JFrame {
 
-    LecPant frHuella;
+    //LecPant frHuella;
     ConexionBase conexion= new ConexionBase();
     
     public Expediente() {
@@ -133,8 +133,8 @@ public class Expediente extends javax.swing.JFrame {
         vector.add(textCP.getText());
         
         this.setVisible(false);
-        frHuella = new LecPant(vector);
-        frHuella.setVisible(true);
+        //frHuella = new LecPant(vector);
+        //frHuella.setVisible(true);
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     public static void main(String args[]) {
