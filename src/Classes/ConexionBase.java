@@ -13,8 +13,8 @@ import java.util.logging.Logger;
 public class ConexionBase {
     static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     static String url = "jdbc:sqlserver://localhost:1433;databaseName=CLINICA5NM80";
-    static String user = "sele";
-    static String pass = "123";
+    static String user = "userpi";
+    static String pass = "111";
     
     public ConexionBase(){
         //getConection();
@@ -32,5 +32,15 @@ public class ConexionBase {
             Logger.getLogger(ConexionBase.class.getName()).log(Level.SEVERE, null, ex);
         }      
         return con;
+    }
+    
+    public static void close(Connection con){
+        if(con != null){
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ConexionBase.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
