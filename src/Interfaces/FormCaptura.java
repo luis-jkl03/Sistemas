@@ -21,14 +21,17 @@ import java.awt.Image;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-public class LecPant extends JFrame{
+public class FormCaptura extends JFrame{
    
-   public LecPant(){
+   public FormCaptura(){
        initComponents();
         this.addComponentListener(new ComponentAdapter() {
                  @Override public void componentShown(ComponentEvent e) {
@@ -42,6 +45,42 @@ public class LecPant extends JFrame{
          });
        
    }
+
+    public JButton getBtnAccion() {
+        return btnAccion;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return jScroll;
+    }
+
+    public void setjScrollPane1(JScrollPane jScrollPane1) {
+        this.jScroll = jScrollPane1;
+    }
+
+    public JTextArea getTextEstados() {
+        return textEstados;
+    }
+
+    public void setTextEstados(JTextArea textEstados) {
+        this.textEstados = textEstados;
+    }
+
+    public JTextField getTextExp() {
+        return textExp;
+    }
+
+    public void setTextExp(JTextField textExp) {
+        this.textExp = textExp;
+    }
+
+    public JTextField getTextNombre() {
+        return textNombre;
+    }
+
+    public void setTextNombre(JTextField textNombre) {
+        this.textNombre = textNombre;
+    }
 
     public JLabel getLabHuella() {
         return labHuella;
@@ -173,14 +212,15 @@ public class LecPant extends JFrame{
     private void initComponents() {
 
         labHuella = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnAccion = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         textExp = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         textNombre = new javax.swing.JTextField();
-        textEdoLector = new javax.swing.JTextField();
         colorEstadoLector = new javax.swing.JTextField();
         lbEstadoLector = new javax.swing.JLabel();
+        jScroll = new javax.swing.JScrollPane();
+        textEstados = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(700, 600));
@@ -190,45 +230,65 @@ public class LecPant extends JFrame{
         labHuella.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(labHuella, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 150, 240));
 
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAccionActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
+        getContentPane().add(btnAccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
 
         jLabel1.setText("Expediente ");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 75, 35));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 70, 20));
 
+        textExp.setEditable(false);
         textExp.setToolTipText("");
-        getContentPane().add(textExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 100, 30));
+        getContentPane().add(textExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 100, 30));
 
         jLabel2.setText("Paciente");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, -1, -1));
-        getContentPane().add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 270, 30));
-        getContentPane().add(textEdoLector, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 200, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, -1, -1));
+
+        textNombre.setEditable(false);
+        textNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textNombreActionPerformed(evt);
+            }
+        });
+        getContentPane().add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 270, 30));
         getContentPane().add(colorEstadoLector, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 40, 30));
 
         lbEstadoLector.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         getContentPane().add(lbEstadoLector, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 345, 300, 20));
 
+        jScroll.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        textEstados.setColumns(20);
+        textEstados.setRows(5);
+        textEstados.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jScroll.setViewportView(textEstados);
+
+        getContentPane().add(jScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 460, 580, 60));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       jButton1.setText("kjidfj");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnAccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccionActionPerformed
+
+    }//GEN-LAST:event_btnAccionActionPerformed
+
+    private void textNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNombreActionPerformed
+        
+    }//GEN-LAST:event_textNombreActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAccion;
     private javax.swing.JTextField colorEstadoLector;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScroll;
     private javax.swing.JLabel labHuella;
     private javax.swing.JLabel lbEstadoLector;
-    private javax.swing.JTextField textEdoLector;
+    private javax.swing.JTextArea textEstados;
     private javax.swing.JTextField textExp;
     private javax.swing.JTextField textNombre;
     // End of variables declaration//GEN-END:variables

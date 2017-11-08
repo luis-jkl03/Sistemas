@@ -1,6 +1,7 @@
 package Interfaces;
 
 import Classes.Enrolar;
+import Classes.Verificacion;
 import java.io.*;
 import java.beans.*;
 import java.awt.*;
@@ -8,7 +9,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import com.digitalpersona.onetouch.*;
 
-public class MainForm extends JFrame
+public class MainFormMio extends JFrame
 {
 	public static String TEMPLATE_PROPERTY = "template";
 	private DPFPTemplate template;
@@ -21,7 +22,7 @@ public class MainForm extends JFrame
 			return "Fingerprint Template File (*.fpt)";
 		}
 	}
-	MainForm() {
+	MainFormMio() {
         setState(Frame.NORMAL);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setTitle("Fingerprint Enrollment and Verification Sample");
@@ -29,11 +30,20 @@ public class MainForm extends JFrame
 
 		final JButton enroll = new JButton("Fingerprint Enrollment");
         enroll.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { onEnroll(); }});
+            public void actionPerformed(ActionEvent e) { /*onEnroll();*/ 
+            Expediente exp = new Expediente();
+            exp.setVisible(true);
+            
+            }});
 		
 		final JButton verify = new JButton("Fingerprint Verification");
         verify.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { onVerify(); }});
+            public void actionPerformed(ActionEvent e) { /*onVerify(); */
+           Verificacion v=new Verificacion();
+           v.setVisible(true);
+               
+            
+            }});
 
 		final JButton save = new JButton("Save Fingerprint Template");
         save.addActionListener(new ActionListener() {
@@ -49,11 +59,11 @@ public class MainForm extends JFrame
 		
 		this.addPropertyChangeListener(TEMPLATE_PROPERTY, new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				verify.setEnabled(template != null);
-				save.setEnabled(template != null);
+				//verify.setEnabled(template != null);
+				//save.setEnabled(template != null);
 				if (evt.getNewValue() == evt.getOldValue()) return;
 				if (template != null)
-					JOptionPane.showMessageDialog(MainForm.this, "The fingerprint template is ready for fingerprint verification.", "Fingerprint Enrollment", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(MainFormMio.this, "The fingerprint template is ready for fingerprint verification.", "Fingerprint Enrollment", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 			
@@ -81,8 +91,8 @@ public class MainForm extends JFrame
 	}
 	
 	private void onEnroll() {
-                Enrolar form = new Enrolar();
-		form.setVisible(true);
+                //Enrolar form = new Enrolar();
+		//form.setVisible(true);
 	}
 
 	private void onVerify() {
@@ -154,7 +164,7 @@ public class MainForm extends JFrame
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new MainForm();
+                new MainFormMio();
             }
         });
     }

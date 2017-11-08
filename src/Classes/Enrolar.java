@@ -1,7 +1,7 @@
 
 package Classes;
 
-import Interfaces.LecPant;
+import Interfaces.FormCaptura;
 import com.digitalpersona.onetouch.DPFPDataPurpose;
 import com.digitalpersona.onetouch.DPFPFeatureSet;
 import com.digitalpersona.onetouch.DPFPGlobal;
@@ -9,14 +9,46 @@ import com.digitalpersona.onetouch.DPFPSample;
 import com.digitalpersona.onetouch.processing.DPFPEnrollment;
 import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Properties;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-public class Enrolar extends LecPant {    
+public class Enrolar extends FormCaptura {    
     
-    public Enrolar()
+    Vector vector;
+    Properties p;
+    public Enrolar(Vector vector)
     {
-        //super();
+        //super(vector);
+        this.vector = vector;
+        getTextExp().setText((String) vector.get(0));
+        getTextNombre().setText((String) vector.get(1));
+        
+        p = new Properties();
+        try {
+            p.load(new FileReader("src/Classes/globales.properties"));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
     private DPFPEnrollment enroller = DPFPGlobal.getEnrollmentFactory().createEnrollment();
@@ -25,7 +57,19 @@ public class Enrolar extends LecPant {
 	@Override protected void init()
 	{
 		super.init();
-		this.setTitle("Fingerprint Enrollment");
+		this.setTitle("Captura de Huella");
+                getBtnAccion().setText("Guardar datos");
+                getBtnAccion().setToolTipText("Guardar los datos en base");
+                getBtnAccion().setEnabled(false);
+                getBtnAccion().addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        guardarDatosPersonales();
+                        guardarDatosHuella();
+                    }
+                });
+                
 		updateStatus();
 	}
 
@@ -49,9 +93,10 @@ public class Enrolar extends LecPant {
 			{
 				case TEMPLATE_STATUS_READY:	// report success and stop capturing
 					stop();
-                                        ImageIcon icon = new ImageIcon(this.getClass().getResource("src//Imagenes//paloma2.png"));
-					JOptionPane.showMessageDialog(this, "La huella fue tomada con exito","Mensaje", JOptionPane.PLAIN_MESSAGE, icon);
-					break;
+                                        Icon img = new ImageIcon(this.getClass().getResource("/Imagenes/paloman.png"));
+					JOptionPane.showMessageDialog(this, "La huella fue tomada con exito","Captura Huella", JOptionPane.PLAIN_MESSAGE,img);
+					getBtnAccion().setEnabled(true);
+                                        break;
 
 				case TEMPLATE_STATUS_FAILED:	// report failure and restart capturing
 					enroller.clear();
@@ -67,6 +112,110 @@ public class Enrolar extends LecPant {
 	private void updateStatus()
 	{
 		// Show number of samples needed.
-		setStatus(String.format("Fingerprint samples needed: %1$s", enroller.getFeaturesNeeded()));
+		//setStatus(String.format("Fingerprint samples needed: %1$s", enroller.getFeaturesNeeded()));
+            getTextEstados().setText(String.format("Huellas requeridas para toma: %1$s", enroller.getFeaturesNeeded()));
 	}
+        
+        private void guardarDatosPersonales() {
+            Connection con = null;
+            PreparedStatement pst = null;
+            
+            try {
+                con = ConexionBase.getConection();
+                pst = con.prepareStatement("INSERT INTO PERPACIENTE VALUES(?,?,?,?,?,?)");
+                pst.setString(1, (String) vector.get(1));
+                pst.setInt(2, Integer.parseInt((String) vector.get(2)));
+                pst.setString(3, (String) vector.get(3));
+                pst.setString(4, (String) vector.get(4));
+                pst.setString(5, (String) vector.get(5));
+                pst.setString(6, (String) vector.get(6));
+                pst.execute();
+                
+                
+                
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Ocurrio un error al guardar los datos");
+            }finally{
+                if(pst != null)
+                    try {
+                        pst.close();
+                if(con != null)
+                    ConexionBase.close(con);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+                
+        }
+
+        private void guardarDatosHuella() {
+            Connection con = null;
+            PreparedStatement pst = null;
+            File file = null;
+            
+            try {
+                con = ConexionBase.getConection();
+                file = getFileFpt();
+                FileInputStream stream = new FileInputStream(file);
+                pst = con.prepareStatement("INSERT INTO HUELLAPACIENTE VALUES(?,?,?,?)");
+                pst.setString(1, (String) vector.get(0));
+                pst.setString(2, (String) vector.get(1));
+                pst.setString(3, "1");
+                pst.setBinaryStream(4, stream, file.length());
+                pst.execute();
+                
+                JOptionPane.showMessageDialog(this, "Datos guardados correctamente");
+                this.dispose();
+                
+            } catch (FileNotFoundException ex) {
+            Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al guardar los datos");
+        } finally{
+                if(pst != null)
+                    try {
+                        pst.close();
+                if(con != null)
+                    ConexionBase.close(con);
+                
+                } catch (SQLException ex) {
+                    Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+            if(file != null)
+                    file.delete();
 }
+
+    private File getFileFpt() {
+        File dir = new File(p.getProperty("rutaImagenesFPT"));
+        if(!dir.exists()){
+            dir.mkdirs();
+        }
+        String path = p.getProperty("rutaImagenesFPT") + "//";
+        File file = new File(path + "h-" + (String) vector.get(0) + ".fpt");
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        FileOutputStream stream = null;
+        try {
+            stream = new FileOutputStream(file);
+            stream.write(enroller.getTemplate().serialize());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+                try {
+                    if(stream != null)
+                        stream.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }        
+        return file;
+        }
+    }

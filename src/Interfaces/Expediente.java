@@ -2,6 +2,7 @@ package Interfaces;
 
 
 import Classes.ConexionBase;
+import Classes.Enrolar;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,15 +15,12 @@ import javax.swing.JOptionPane;
 
 public class Expediente extends javax.swing.JFrame {
 
-    //LecPant frHuella;
     ConexionBase conexion= new ConexionBase();
     
     public Expediente() {
-        //JOptionPane.showMessageDialog(null,"TE AMO MUCHO CHUBB <3 <3");
+        
         initComponents();
             asignarExpediente();        
-            textExp.setEditable(false);
-        
     }
 
     public void asignarExpediente()
@@ -79,34 +77,50 @@ public class Expediente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        textExp.setEditable(false);
         textExp.setToolTipText("");
-        getContentPane().add(textExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 61, 144, 32));
+        textExp.setAutoscrolls(false);
+        textExp.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        getContentPane().add(textExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 144, 32));
 
         jLabel1.setText("Expediente ");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 60, 75, 35));
-        getContentPane().add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 123, 335, 30));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, 20));
+
+        textNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textNombreKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textNombreKeyReleased(evt);
+            }
+        });
+        getContentPane().add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 335, 30));
 
         jLabel2.setText("Nombre");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 131, -1, -1));
-        getContentPane().add(textEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 184, 50, 23));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+        getContentPane().add(textEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 50, 23));
 
         jLabel3.setText("Edad");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 184, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, -1, -1));
 
         jLabel4.setText("Sexo");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 188, -1, -1));
 
-        comboSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
+        comboSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "M", "F" }));
         getContentPane().add(comboSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(269, 185, -1, -1));
 
         jLabel5.setText("Direccion");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 248, -1, -1));
-        getContentPane().add(textDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 510, 30));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
+        getContentPane().add(textDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 510, 30));
         getContentPane().add(textMunDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 160, 30));
 
         jLabel6.setText("Municipio / Delegacion");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
-        getContentPane().add(textCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, 60, 20));
+
+        textCP.setBackground(java.awt.SystemColor.info);
+        textCP.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        getContentPane().add(textCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 310, 100, 30));
 
         jLabel7.setText("C.P");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 320, -1, -1));
@@ -125,17 +139,24 @@ public class Expediente extends javax.swing.JFrame {
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         Vector vector = new Vector();
         vector.add(textExp.getText());
-        vector.add(textNombre.getText());
+        vector.add(textNombre.getText().toUpperCase());
         vector.add(textEdad.getText());
         vector.add(comboSexo.getSelectedItem().toString());
-        vector.add(textDireccion.getText());
-        vector.add(textMunDel.getText());
+        vector.add(textDireccion.getText().toUpperCase());
+        vector.add(textMunDel.getText().toUpperCase());
         vector.add(textCP.getText());
         
-        this.setVisible(false);
-        //frHuella = new LecPant(vector);
-        //frHuella.setVisible(true);
+        Enrolar enrolar = new Enrolar(vector);
+        enrolar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnSiguienteActionPerformed
+
+    private void textNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNombreKeyReleased
+    textNombre.setText(  textNombre.getText().toUpperCase());    }//GEN-LAST:event_textNombreKeyReleased
+
+    private void textNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNombreKeyPressed
+       //textNombre.setText(  textNombre.getText().toUpperCase());
+    }//GEN-LAST:event_textNombreKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
