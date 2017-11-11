@@ -25,9 +25,7 @@ public class Expedient extends javax.swing.JDialog {
         initComponents();
         asignarExpediente(); 
         this.setLocationRelativeTo(null);
-        menu = parent;
-       //venMenu = new menuClinica();
-       //venMenu.fRegistroHu();
+        menu = parent;     
     }
 public Expedient()
     {
@@ -53,7 +51,7 @@ public Expedient()
                 
                  
                     } catch (SQLException ex) {
-            Logger.getLogger(Expediente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Expedient.class.getName()).log(Level.SEVERE, null, ex);
         }finally
         {
         try {
@@ -61,7 +59,7 @@ public Expedient()
                 
                 con.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Expediente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Expedient.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
     }
@@ -113,15 +111,7 @@ public Expedient()
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
         textNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textNombre.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                textNombreMouseEntered(evt);
-            }
-        });
         textNombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                textNombreKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textNombreKeyReleased(evt);
             }
@@ -185,14 +175,6 @@ public Expedient()
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textNombreMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textNombreMouseEntered
-
-    }//GEN-LAST:event_textNombreMouseEntered
-
-    private void textNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNombreKeyPressed
-        //textNombre.setText(  textNombre.getText().toUpperCase());
-    }//GEN-LAST:event_textNombreKeyPressed
-
     private void textNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNombreKeyReleased
         textNombre.setText(  textNombre.getText().toUpperCase());
     }//GEN-LAST:event_textNombreKeyReleased
@@ -228,12 +210,8 @@ public Expedient()
         {
         this.dispose();
         Enrolar enrolar = new Enrolar(vector, menu);      
-        enrolar.setVisible(true);
-       
-       // enrolar.setAlwaysOnTop(true);
-       
-        //form.setVisible(true);
-            JOptionPane.showMessageDialog(this, "Se CIERRA FRAME DE GUARDAR DATOS PERSONALES");
+        enrolar.setVisible(true);            
+        JOptionPane.showMessageDialog(this, "Se CIERRA FRAME DE GUARDAR DATOS PERSONALES");
         }
     }
     /**

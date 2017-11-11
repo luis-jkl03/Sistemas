@@ -46,6 +46,7 @@ public class Enrolar extends FormCaptur {
     {
         
         super(menu,true);
+        init();
         this.vector = vector;        
         getTextExp().setText((String) vector.get(0));
         getTextNombre().setText((String) vector.get(1));
@@ -65,17 +66,15 @@ public class Enrolar extends FormCaptur {
 	
 	@Override protected void init()
 	{
-		super.init();
-                System.out.println("ENTRE A ESTE ENROL");                        
+		super.init();                
 		this.setTitle("Captura de Huella");
-                getjLabelTitu().setText("Registro Huella Paciente");        
-              //  getBtnAccion().setText("Guardar datos");               
+                getjLabelTitu().setText("Registro Huella Paciente");                                    
                 getBtnGuardar().setText("Guardar");
                // getBtnAccion().setToolTipText("Guardar los datos en base");
                getBtnGuardar().setEnabled(false);
-                getBtnGuardar().addActionListener(new ActionListener() 
-                
-                
+               
+               
+               getBtnGuardar().addActionListener(new ActionListener()                                
                 {
                 
                     @Override
@@ -111,7 +110,7 @@ public class Enrolar extends FormCaptur {
                                         Icon img = new ImageIcon(this.getClass().getResource("/Imagenes/paloman.png"));
 					JOptionPane.showMessageDialog(this, "La huella fue tomada con exito","Captura Huella", JOptionPane.PLAIN_MESSAGE,img);
 					getBtnGuardar().setEnabled(true);
-                                         //  menu.fRegistroHu();
+                                        
                                         break;
 
 				case TEMPLATE_STATUS_FAILED:	// report failure and restart capturing

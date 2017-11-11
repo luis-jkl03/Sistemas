@@ -19,11 +19,14 @@ import com.digitalpersona.onetouch.processing.DPFPFeatureExtraction;
 import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
 import java.awt.Color;
 import java.awt.Image;
+import static java.awt.SystemColor.menu;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -33,9 +36,11 @@ import javax.swing.SwingUtilities;
 public class FormCaptur extends javax.swing.JDialog {
 
      public FormCaptur(){
-       initComponents();
        
-       this.setLocationRelativeTo(null);
+       initComponents();   
+         JOptionPane.showMessageDialog(null, "hhh");
+      /* this.setLocationRelativeTo(null);
+       
         this.addComponentListener(new ComponentAdapter() {
                  @Override public void componentShown(ComponentEvent e) {
                          init();
@@ -45,11 +50,12 @@ public class FormCaptur extends javax.swing.JDialog {
                          stop();
                  }
 
-         });
-       
+         });*/
    }
 
-    public JLabel getjLabelTitu() {
+    
+     
+     public JLabel getjLabelTitu() {
         return jLabelTitu;
     }
 
@@ -66,10 +72,7 @@ public class FormCaptur extends javax.swing.JDialog {
     public void setBtnGuardar(JButton btnGuardar) {
         this.btnGuardar = btnGuardar;
     }
-
-   
-   
-
+    
     public JScrollPane getjScrollPane1() {
         return jScroll;
     }
@@ -138,14 +141,15 @@ public class FormCaptur extends javax.swing.JDialog {
 				SwingUtilities.invokeLater(new Runnable() {	public void run() {
 		 			//makeReport("El lector esta conectado");
                                     colorEstadoLector.setBackground(Color.GREEN);
-                                    lbEstadoLector.setText("El lector esta conectado");
+                                    lbEdoLector.setText("El lector esta conectado");
+                                    
 				}});
 			}
 			@Override public void readerDisconnected(final DPFPReaderStatusEvent e) {
 				SwingUtilities.invokeLater(new Runnable() {	public void run() {
 					//makeReport("El lector esta desconectado");
                                     colorEstadoLector.setBackground(Color.RED);
-                                    lbEstadoLector.setText("El lector esta desconectado");
+                                    lbEdoLector.setText("El lector esta desconectado");
 				}});
 			}
 		});
@@ -233,7 +237,7 @@ public class FormCaptur extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbEstadoLector = new javax.swing.JLabel();
+        lbEdoLector = new javax.swing.JLabel();
         jLabelTitu = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         labHuella = new javax.swing.JLabel();
@@ -250,8 +254,8 @@ public class FormCaptur extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbEstadoLector.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        getContentPane().add(lbEstadoLector, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 355, 300, 20));
+        lbEdoLector.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        getContentPane().add(lbEdoLector, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 355, 300, 20));
 
         jLabelTitu.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         jLabelTitu.setForeground(new java.awt.Color(204, 0, 0));
@@ -368,7 +372,7 @@ public class FormCaptur extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScroll;
     private javax.swing.JLabel jlabelLTitulo;
     private javax.swing.JLabel labHuella;
-    private javax.swing.JLabel lbEstadoLector;
+    private javax.swing.JLabel lbEdoLector;
     private javax.swing.JTextArea textEstados;
     private javax.swing.JTextArea textEstados1;
     private javax.swing.JTextField textExp;

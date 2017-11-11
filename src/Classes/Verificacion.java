@@ -2,7 +2,7 @@
 package Classes;
 
 import Interfaces.FormCaptur;
-import Interfaces.FormCaptura;
+
 import com.digitalpersona.onetouch.DPFPDataPurpose;
 import com.digitalpersona.onetouch.DPFPFeatureSet;
 import com.digitalpersona.onetouch.DPFPGlobal;
