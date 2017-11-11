@@ -1,7 +1,8 @@
 
 package Classes;
 
-import Interfaces.FormCaptura;
+import Interfaces.FormCaptur;
+import Interfaces.menuClinica;
 import com.digitalpersona.onetouch.DPFPDataPurpose;
 import com.digitalpersona.onetouch.DPFPFeatureSet;
 import com.digitalpersona.onetouch.DPFPGlobal;
@@ -28,16 +29,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class Enrolar extends FormCaptura {    
+public class Enrolar extends FormCaptur {    
     
     Vector vector;
     Properties p;
-    public Enrolar(Vector vector)
+    
+    
+    public Enrolar()
     {
-        //super(vector);
-        this.vector = vector;
+        
+    }
+    public Enrolar(Vector vector, Frame menu)
+    {
+        
+        super(menu,true);
+        this.vector = vector;        
         getTextExp().setText((String) vector.get(0));
         getTextNombre().setText((String) vector.get(1));
         
@@ -57,12 +66,18 @@ public class Enrolar extends FormCaptura {
 	@Override protected void init()
 	{
 		super.init();
+                System.out.println("ENTRE A ESTE ENROL");                        
 		this.setTitle("Captura de Huella");
-                getBtnAccion().setText("Guardar datos");
-                getBtnAccion().setToolTipText("Guardar los datos en base");
-                getBtnAccion().setEnabled(false);
-                getBtnAccion().addActionListener(new ActionListener() {
-
+                getjLabelTitu().setText("Registro Huella Paciente");        
+              //  getBtnAccion().setText("Guardar datos");               
+                getBtnGuardar().setText("Guardar");
+               // getBtnAccion().setToolTipText("Guardar los datos en base");
+               getBtnGuardar().setEnabled(false);
+                getBtnGuardar().addActionListener(new ActionListener() 
+                
+                
+                {
+                
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         guardarDatosPersonales();
@@ -95,7 +110,8 @@ public class Enrolar extends FormCaptura {
 					stop();
                                         Icon img = new ImageIcon(this.getClass().getResource("/Imagenes/paloman.png"));
 					JOptionPane.showMessageDialog(this, "La huella fue tomada con exito","Captura Huella", JOptionPane.PLAIN_MESSAGE,img);
-					getBtnAccion().setEnabled(true);
+					getBtnGuardar().setEnabled(true);
+                                         //  menu.fRegistroHu();
                                         break;
 
 				case TEMPLATE_STATUS_FAILED:	// report failure and restart capturing
@@ -145,7 +161,7 @@ public class Enrolar extends FormCaptura {
                     Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-                
+       
         }
 
         private void guardarDatosHuella() {
@@ -218,4 +234,11 @@ public class Enrolar extends FormCaptura {
         }        
         return file;
         }
-    }
+   
+    
+  
+        
+    }           
+    
+    
+    

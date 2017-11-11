@@ -1,6 +1,7 @@
 
 package Classes;
 
+import Interfaces.FormCaptur;
 import Interfaces.FormCaptura;
 import com.digitalpersona.onetouch.DPFPDataPurpose;
 import com.digitalpersona.onetouch.DPFPFeatureSet;
@@ -34,7 +35,7 @@ import javax.swing.JOptionPane;
 import sun.misc.IOUtils;
 
 
-public class Verificacion extends FormCaptura {
+public class Verificacion extends FormCaptur {
     Properties p;
     Vector h;
     public Verificacion()
@@ -57,8 +58,8 @@ public class Verificacion extends FormCaptura {
 	{
 		super.init();
 		this.setTitle("CONTROL DE ACCESO");
-                getBtnAccion().setText("Ingresar");
-                getBtnAccion().setEnabled(false);
+                getBtnGuardar().setText("Ingresar");
+                getBtnGuardar().setEnabled(false);
                 getjScrollPane1().setVisible(false);
 		//updateStatus(0);
 	}
@@ -142,7 +143,7 @@ public class Verificacion extends FormCaptura {
                                 exp = "si";
                                 getTextExp().setText(rs.getString(1));
                                 getTextNombre().setText(rs.getString(2));                                
-                                getBtnAccion().setEnabled(true);
+                                getBtnGuardar().setEnabled(true);
                                 break;
                         }
                         
