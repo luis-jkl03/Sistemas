@@ -35,7 +35,7 @@ import javax.swing.JOptionPane;
 import sun.misc.IOUtils;
 
 
-public class Verificacion extends FormCaptur {
+/*public class Verificacion extends FormCaptur {
     Properties p;
     Vector h;
     public Verificacion()
@@ -172,4 +172,4 @@ public class Verificacion extends FormCaptur {
 
 
 
-}
+}*/

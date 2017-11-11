@@ -38,10 +38,7 @@ public class Enrolar extends FormCaptur {
     Properties p;
     
     
-    public Enrolar()
-    {
-        
-    }
+    
     public Enrolar(Vector vector, Frame menu)
     {
         
@@ -68,7 +65,7 @@ public class Enrolar extends FormCaptur {
 	{
 		super.init();                
 		this.setTitle("Captura de Huella");
-                getjLabelTitu().setText("Registro Huella Paciente");                                    
+                getjLabelTitu().setText("Registro Huella Paciente***");                                    
                 getBtnGuardar().setText("Guardar");
                // getBtnAccion().setToolTipText("Guardar los datos en base");
                getBtnGuardar().setEnabled(false);

@@ -2,7 +2,7 @@
 package Interfaces;
 
 import Classes.Enrolar;
-import Classes.Verificacion;
+//import Classes.Verificacion;
 import java.awt.Frame;
 import javax.swing.JFrame;
 
@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 public class menuClinica extends javax.swing.JFrame {
 
     
-    Verificacion vali = null; 
+    //Verificacion vali = null; 
      Expedient exp = null;
      Enrolar enro=null;
      FormCaptur cap=null;

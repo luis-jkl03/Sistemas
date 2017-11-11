@@ -18,6 +18,7 @@ import com.digitalpersona.onetouch.capture.event.DPFPSensorEvent;
 import com.digitalpersona.onetouch.processing.DPFPFeatureExtraction;
 import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Image;
 import static java.awt.SystemColor.menu;
 import java.awt.event.ComponentAdapter;
@@ -35,26 +36,21 @@ import javax.swing.SwingUtilities;
 
 public class FormCaptur extends javax.swing.JDialog {
 
-     public FormCaptur(){
-       
-       initComponents();   
-         JOptionPane.showMessageDialog(null, "hhh");
-      /* this.setLocationRelativeTo(null);
-       
+     public FormCaptur(java.awt.Frame parent, boolean modal){
+       super(parent, modal);
+       initComponents();            
+       this.setLocationRelativeTo(null);       
         this.addComponentListener(new ComponentAdapter() {
                  @Override public void componentShown(ComponentEvent e) {
                          init();
                          start();
                  }
                  @Override public void componentHidden(ComponentEvent e) {
-                         stop();
+                        stop();
                  }
-
-         });*/
+         });
    }
-
-    
-     
+         
      public JLabel getjLabelTitu() {
         return jLabelTitu;
     }
@@ -120,9 +116,7 @@ public class FormCaptur extends javax.swing.JDialog {
     public void setLabHuella(JLabel labHuella) {
         this.labHuella = labHuella;
     }
-    
-    
-    
+            
     private DPFPCapture capturer = DPFPGlobal.getCaptureFactory().createCapture();
     
     protected void init()
@@ -223,10 +217,7 @@ public class FormCaptur extends javax.swing.JDialog {
 			return null;
 		}
 	}
-    public FormCaptur(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
