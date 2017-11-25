@@ -36,8 +36,8 @@ import javax.swing.SwingUtilities;
 
 public class FormCaptur extends javax.swing.JDialog {
 
-     public FormCaptur(java.awt.Frame parent, boolean modal){
-       super(parent, modal);
+     public FormCaptur(java.awt.Frame parent){
+       super(parent, true);
        initComponents();            
        this.setLocationRelativeTo(null);       
         this.addComponentListener(new ComponentAdapter() {
@@ -115,6 +115,10 @@ public class FormCaptur extends javax.swing.JDialog {
 
     public void setLabHuella(JLabel labHuella) {
         this.labHuella = labHuella;
+    }
+
+    public DPFPCapture getCapturer() {
+        return capturer;
     }
             
     private DPFPCapture capturer = DPFPGlobal.getCaptureFactory().createCapture();
@@ -238,11 +242,9 @@ public class FormCaptur extends javax.swing.JDialog {
         textNombre = new javax.swing.JTextField();
         colorEstadoLector = new javax.swing.JTextField();
         jScroll = new javax.swing.JScrollPane();
-        textEstados1 = new javax.swing.JTextArea();
         textEstados = new javax.swing.JTextArea();
         jlabelLTitulo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbEdoLector.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -286,17 +288,12 @@ public class FormCaptur extends javax.swing.JDialog {
 
         jScroll.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        textEstados1.setColumns(20);
-        textEstados1.setRows(5);
-        textEstados1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jScroll.setViewportView(textEstados1);
-
-        getContentPane().add(jScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 580, 100));
-
         textEstados.setColumns(20);
         textEstados.setRows(5);
         textEstados.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(textEstados, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 480, 540, 80));
+        jScroll.setViewportView(textEstados);
+
+        getContentPane().add(jScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 580, 100));
 
         jlabelLTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoClinihuella.jpg"))); // NOI18N
         getContentPane().add(jlabelLTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 580));
@@ -312,47 +309,6 @@ public class FormCaptur extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormCaptur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormCaptur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormCaptur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormCaptur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                FormCaptur dialog = new FormCaptur(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
@@ -365,7 +321,6 @@ public class FormCaptur extends javax.swing.JDialog {
     private javax.swing.JLabel labHuella;
     private javax.swing.JLabel lbEdoLector;
     private javax.swing.JTextArea textEstados;
-    private javax.swing.JTextArea textEstados1;
     private javax.swing.JTextField textExp;
     private javax.swing.JTextField textNombre;
     // End of variables declaration//GEN-END:variables

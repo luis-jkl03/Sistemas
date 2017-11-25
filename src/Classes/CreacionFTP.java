@@ -15,7 +15,6 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import jdk.internal.util.xml.impl.Input;
 import jdk.jfr.events.FileWriteEvent;
 
 

@@ -2,7 +2,6 @@
 package Classes;
 
 import Interfaces.FormCaptur;
-import Interfaces.menuClinica;
 import com.digitalpersona.onetouch.DPFPDataPurpose;
 import com.digitalpersona.onetouch.DPFPFeatureSet;
 import com.digitalpersona.onetouch.DPFPGlobal;
@@ -18,36 +17,24 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class Enrolar extends FormCaptur {    
+public class Actualizacion extends FormCaptur{
     
-    Vector vector;
     Properties p;
-    
-    
-    
-    public Enrolar(Vector vector, Frame menu)
-    {
-        
+    int expediente;
+    public Actualizacion(Frame menu, int expediente){
         super(menu);
-        //init();
-        this.vector = vector;        
-        getTextExp().setText((String) vector.get(0));
-        getTextNombre().setText((String) vector.get(1));
-        
+        this.expediente = expediente;
         p = new Properties();
         try {
             p.load(new FileReader("src/Classes/globales.properties"));
@@ -56,17 +43,17 @@ public class Enrolar extends FormCaptur {
         } catch (IOException ex) {
             Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
+    
     private DPFPEnrollment enroller = DPFPGlobal.getEnrollmentFactory().createEnrollment();
 
 	
 	@Override protected void init()
 	{
 		super.init();                
-		this.setTitle("Captura de Huella");
-                getjLabelTitu().setText("Registro Huella Paciente***");                                    
-                getBtnGuardar().setText("Guardar");
+		this.setTitle("Actualizar huella");
+                getjLabelTitu().setText("Actualizar Huella Paciente***");                                    
+                getBtnGuardar().setText("Actualizar");
                // getBtnAccion().setToolTipText("Guardar los datos en base");
                getBtnGuardar().setEnabled(false);
                
@@ -76,8 +63,8 @@ public class Enrolar extends FormCaptur {
                 
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        guardarDatosPersonales();
-                        guardarDatosHuella();
+                        //guardarDatosPersonales();
+                        actualizarHuella();
                     }
                 });
                 
@@ -108,8 +95,7 @@ public class Enrolar extends FormCaptur {
 					stop();
                                         Icon img = new ImageIcon(this.getClass().getResource("/Imagenes/paloman.png"));
 					JOptionPane.showMessageDialog(this, "La huella fue tomada con exito","Captura Huella", JOptionPane.PLAIN_MESSAGE,img);
-					getBtnGuardar().setEnabled(true);
-                                        
+					getBtnGuardar().setEnabled(true);                                 
                                         break;
 
 				case TEMPLATE_STATUS_FAILED:	// report failure and restart capturing
@@ -125,79 +111,66 @@ public class Enrolar extends FormCaptur {
 	
 	private void updateStatus()
 	{
-		// Show number of samples needed.
-		//setStatus(String.format("Fingerprint samples needed: %1$s", enroller.getFeaturesNeeded()));
             getTextEstados().setText(String.format("Huellas requeridas para toma: %1$s", enroller.getFeaturesNeeded()));
 	}
         
-        private void guardarDatosPersonales() {
-            Connection con = null;
-            PreparedStatement pst = null;
-            
-            try {
-                con = ConexionBase.getConection();
-                pst = con.prepareStatement("INSERT INTO PERPACIENTE VALUES(?,?,?,?,?,?)");
-                pst.setString(1, (String) vector.get(1));
-                pst.setInt(2, Integer.parseInt((String) vector.get(2)));
-                pst.setString(3, (String) vector.get(3));
-                pst.setString(4, (String) vector.get(4));
-                pst.setString(5, (String) vector.get(5));
-                pst.setString(6, (String) vector.get(6));
-                pst.execute();
-                
-                
-                
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, "Ocurrio un error al guardar los datos");
-            }finally{
-                if(pst != null)
-                    try {
-                        pst.close();
-                if(con != null)
-                    ConexionBase.close(con);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-       
-        }
-
-        private void guardarDatosHuella() {
+        private void actualizarHuella() {
             Connection con = null;
             PreparedStatement pst = null;
             File file = null;
+            FileInputStream stream = null;
             
             try {
                 con = ConexionBase.getConection();
+                System.out.println("Estado template --> " + enroller.getTemplateStatus());
                 file = getFileFpt();
-                FileInputStream stream = new FileInputStream(file);
-                pst = con.prepareStatement("INSERT INTO HUELLAPACIENTE VALUES(?,?,?,?)");
-                pst.setString(1, (String) vector.get(0));
-                pst.setString(2, (String) vector.get(1));
-                pst.setString(3, "1");
-                pst.setBinaryStream(4, stream, file.length());
-                pst.execute();
+                stream = new FileInputStream(file);
+                String archivo = "";
+                /*int c = stream.read();
+                while(c != -1){
+                    archivo += (char) c;
+                    c = stream.read();
+                }*/
+                //System.out.println(archivo);
+                //pst = con.prepareStatement("INSERT INTO HUELLAPACIENTE VALUES(?,?,?,?)");
+                //System.out.println("El expediente es de --> " + expediente);
+                //System.out.println("Consulta --> " + "UPDATE HUELLAPACIENTE(FOT_HUELLA) SET(?) WHERE EXPEDIENTE = " + expediente);
+                pst = con.prepareStatement("UPDATE HUELLAPACIENTE SET FOT_HUELLA = ? WHERE EXPEDIENTE = " + expediente);
+                //System.out.println("UPDATE HUELLAPACIENTE SET FOT_HUELLA = '" + archivo + "' WHERE EXPEDIENTE = " + expediente);
+                //pst = con.prepareStatement("SELECT FOT_HUELLA FROM HUELLAPACIENTE WHERE EXPEDIENTE = " + expediente);
+                //JOptionPane.showMessageDialog(null,"SI PASE");
+                pst.setBinaryStream(1, stream, file.length());
+                //JOptionPane.showMessageDialog(null,"SI PASE2");
+                //ResultSet rs = pst.executeQuery();
+                //while(rs.next()){
+                   // System.out.println(rs.getBinaryStream(1).);
+                //}
+                pst.executeUpdate();
                 
-                JOptionPane.showMessageDialog(this, "Datos guardados correctamente");
-                this.dispose();
-                
+                JOptionPane.showMessageDialog(this, "Huella actualizada correctamente");                
             } catch (FileNotFoundException ex) {
             Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Actualizacion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error al guardar los datos");
+            Logger.getLogger(Actualizacion.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
                 if(pst != null)
                     try {
                         pst.close();
                 if(con != null)
                     ConexionBase.close(con);
+                if(stream != null)
+                    stream.close();
                 
                 } catch (SQLException ex) {
                     Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Actualizacion.class.getName()).log(Level.SEVERE, null, ex);
                 }
         }
-            if(file != null)
-                    file.delete();
+            //if(file != null)
+                    //file.delete();
 }
 
     private File getFileFpt() {
@@ -206,7 +179,7 @@ public class Enrolar extends FormCaptur {
             dir.mkdirs();
         }
         String path = p.getProperty("rutaImagenesFPT") + "//";
-        File file = new File(path + "h-" + (String) vector.get(0) + ".fpt");
+        File file = new File(path + "h-" + expediente + ".fpt");
         if(!file.exists()){
             try {
                 file.createNewFile();
@@ -232,7 +205,4 @@ public class Enrolar extends FormCaptur {
         }        
         return file;
     }        
-}           
-    
-    
-    
+}

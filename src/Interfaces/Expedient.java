@@ -27,10 +27,6 @@ public class Expedient extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         menu = parent;     
     }
-public Expedient()
-    {
-        
-    }
 
     public void asignarExpediente()
     {Connection con = ConexionBase.getConection();
@@ -211,7 +207,7 @@ public Expedient()
         this.dispose();
         Enrolar enrolar = new Enrolar(vector, menu);      
         enrolar.setVisible(true);            
-        JOptionPane.showMessageDialog(this, "Se CIERRA FRAME DE GUARDAR DATOS PERSONALES");
+        //JOptionPane.showMessageDialog(this, "Se CIERRA FRAME DE GUARDAR DATOS PERSONALES");
         }
     }
     /**

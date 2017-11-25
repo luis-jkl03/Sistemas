@@ -32,14 +32,15 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import sun.misc.IOUtils;
 
 
-/*public class Verificacion extends FormCaptur {
+public class Verificacion extends FormCaptur {
     Properties p;
     Vector h;
-    public Verificacion()
+    
+    public Verificacion(Frame parent)
     {
+        super(parent);
          p = new Properties();
          h=new Vector();
         try {
@@ -112,12 +113,14 @@ import sun.misc.IOUtils;
         PreparedStatement ps=null;
         ResultSet rs=null;
         String exp = "0";
+        
         try{
             DPFPFeatureSet features = extractFeatures(sample, DPFPDataPurpose.DATA_PURPOSE_VERIFICATION);
             
              con= ConexionBase.getConection();
              ps = con.prepareStatement("SELECT EXPEDIENTE, NOM_PACIENTE, FOT_HUELLA FROM HUELLAPACIENTE");
              rs=ps.executeQuery();
+             boolean encontrado = false;
             while(rs.next())
             {
                 
@@ -144,17 +147,16 @@ import sun.misc.IOUtils;
                                 getTextExp().setText(rs.getString(1));
                                 getTextNombre().setText(rs.getString(2));                                
                                 getBtnGuardar().setEnabled(true);
+                                encontrado = true;
                                 break;
                         }
-                        
-			else
-				JOptionPane.showConfirmDialog(rootPane,"LA HUELLA COLOCADA NO SE ENCUENTRA, DESEA INTENTAR NUEVAMENTE?");
-                                break;
-		}
+		}                                            
                                 
                                 
-                                
-                                
+            }
+            if(encontrado == false){
+                JOptionPane.showConfirmDialog(rootPane,"LA HUELLA COLOCADA NO SE ENCUENTRA, DESEA INTENTAR NUEVAMENTE?");
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(Verificacion.class.getName()).log(Level.SEVERE, null, ex);
@@ -165,11 +167,4 @@ import sun.misc.IOUtils;
         }
         return exp;
     }
-    
-
-
-
-
-
-
-}*/
+}
