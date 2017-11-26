@@ -1,13 +1,14 @@
 
 package Classes;
 
-import Interfaces.FormCaptur;
+import Interfaces.FormCaptura;
 import com.digitalpersona.onetouch.DPFPDataPurpose;
 import com.digitalpersona.onetouch.DPFPFeatureSet;
 import com.digitalpersona.onetouch.DPFPGlobal;
 import com.digitalpersona.onetouch.DPFPSample;
 import com.digitalpersona.onetouch.processing.DPFPEnrollment;
 import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
+import java.awt.Dialog;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +20,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -28,12 +28,14 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-public class Actualizacion extends FormCaptur{
+public class Actualizacion extends FormCaptura{
     
     Properties p;
     int expediente;
-    public Actualizacion(Frame menu, int expediente){
+    Dialog busqueda;
+    public Actualizacion(Frame menu, int expediente, Dialog busqueda){
         super(menu);
+        this.busqueda = busqueda;
         this.expediente = expediente;
         p = new Properties();
         try {
@@ -52,18 +54,15 @@ public class Actualizacion extends FormCaptur{
 	{
 		super.init();                
 		this.setTitle("Actualizar huella");
-                getjLabelTitu().setText("Actualizar Huella Paciente***");                                    
+                getjLabelTitu().setText("Actualizar huella digital de paciente");                                    
                 getBtnGuardar().setText("Actualizar");
-               // getBtnAccion().setToolTipText("Guardar los datos en base");
-               getBtnGuardar().setEnabled(false);
-               
+               getBtnGuardar().setEnabled(false);               
                
                getBtnGuardar().addActionListener(new ActionListener()                                
                 {
                 
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        //guardarDatosPersonales();
                         actualizarHuella();
                     }
                 });
@@ -79,7 +78,6 @@ public class Actualizacion extends FormCaptur{
 		// Check quality of the sample and add to enroller if it's good
 		if (features != null) try
 		{
-			makeReport("The fingerprint feature set was created.");
 			enroller.addFeatures(features);		// Add feature set to template.
                         
                 }
@@ -88,8 +86,7 @@ public class Actualizacion extends FormCaptur{
 			updateStatus();
 			// Check if template has been created.
 			switch(enroller.getTemplateStatus())
-			{
-                            
+			{                            
 				case TEMPLATE_STATUS_READY:	// report success and stop capturing
                                    
 					stop();
@@ -104,14 +101,13 @@ public class Actualizacion extends FormCaptur{
                                         JOptionPane.showMessageDialog(this, "Ocurrio un error al tomar la huella, intentelo nuevamente", "Fallo en captura", JOptionPane.ERROR_MESSAGE);
 					updateStatus();
                                         start();
-					break;
 			}
 		}
-	}
-	
+	}	
+        
 	private void updateStatus()
 	{
-            getTextEstados().setText(String.format("Huellas requeridas para toma: %1$s", enroller.getFeaturesNeeded()));
+            getTextEstados().setText(String.format("Huellas requeridas para nueva toma: %1$s", enroller.getFeaturesNeeded()));
 	}
         
         private void actualizarHuella() {
@@ -121,57 +117,35 @@ public class Actualizacion extends FormCaptur{
             FileInputStream stream = null;
             
             try {
-                con = ConexionBase.getConection();
-                System.out.println("Estado template --> " + enroller.getTemplateStatus());
+                con = new ConexionBase().getConection();
                 file = getFileFpt();
                 stream = new FileInputStream(file);
-                String archivo = "";
-                /*int c = stream.read();
-                while(c != -1){
-                    archivo += (char) c;
-                    c = stream.read();
-                }*/
-                //System.out.println(archivo);
-                //pst = con.prepareStatement("INSERT INTO HUELLAPACIENTE VALUES(?,?,?,?)");
-                //System.out.println("El expediente es de --> " + expediente);
-                //System.out.println("Consulta --> " + "UPDATE HUELLAPACIENTE(FOT_HUELLA) SET(?) WHERE EXPEDIENTE = " + expediente);
                 pst = con.prepareStatement("UPDATE HUELLAPACIENTE SET FOT_HUELLA = ? WHERE EXPEDIENTE = " + expediente);
-                //System.out.println("UPDATE HUELLAPACIENTE SET FOT_HUELLA = '" + archivo + "' WHERE EXPEDIENTE = " + expediente);
-                //pst = con.prepareStatement("SELECT FOT_HUELLA FROM HUELLAPACIENTE WHERE EXPEDIENTE = " + expediente);
-                //JOptionPane.showMessageDialog(null,"SI PASE");
                 pst.setBinaryStream(1, stream, file.length());
-                //JOptionPane.showMessageDialog(null,"SI PASE2");
-                //ResultSet rs = pst.executeQuery();
-                //while(rs.next()){
-                   // System.out.println(rs.getBinaryStream(1).);
-                //}
                 pst.executeUpdate();
                 
-                JOptionPane.showMessageDialog(this, "Huella actualizada correctamente");                
+                JOptionPane.showMessageDialog(this, "La huella fue actualizada correctamente");
+                this.dispose();
+                busqueda.dispose();
             } catch (FileNotFoundException ex) {
             Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Actualizacion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(Actualizacion.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al actualzar la huella, intente nuevamente", "Atención", JOptionPane.ERROR_MESSAGE);
         } finally{
-                if(pst != null)
-                    try {
+                try {
+                    if(pst != null)
                         pst.close();
-                if(con != null)
-                    ConexionBase.close(con);
-                if(stream != null)
-                    stream.close();
-                
+                    if(stream != null)
+                        stream.close();
+                    if(con != null)
+                        con.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Actualizacion.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
                     Logger.getLogger(Actualizacion.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
         }
-            //if(file != null)
-                    //file.delete();
-}
 
     private File getFileFpt() {
         File dir = new File(p.getProperty("rutaImagenesFPT"));

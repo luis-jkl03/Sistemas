@@ -3,20 +3,14 @@ package Interfaces;
 
 import Classes.Enrolar;
 import Classes.Verificacion;
-//import Classes.Verificacion;
-import java.awt.Frame;
-import javax.swing.JFrame;
 
+public class FormMenu extends javax.swing.JFrame {
 
-public class menuClinica extends javax.swing.JFrame {
-
-    
-    //Verificacion vali = null; 
-     Expedient exp = null;
+     FormPersonales exp = null;
      Enrolar enro=null;
-     FormCaptur cap=null;
+     FormCaptura cap=null;
      
-    public menuClinica() {
+    public FormMenu() {
         initComponents();
         this.setLocationRelativeTo(null);
                      
@@ -29,9 +23,12 @@ public class menuClinica extends javax.swing.JFrame {
         BtnRegistro = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         BtnConsulta = new javax.swing.JButton();
+        jLabelTitu = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("MENU PRINCIPAL");
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         BtnRegistro.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
@@ -70,6 +67,12 @@ public class menuClinica extends javax.swing.JFrame {
         });
         getContentPane().add(BtnConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, -1, -1));
 
+        jLabelTitu.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabelTitu.setForeground(new java.awt.Color(204, 0, 0));
+        jLabelTitu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitu.setText("MENU PRINCIPAL");
+        getContentPane().add(jLabelTitu, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 750, 40));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoClini2.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 550));
 
@@ -77,7 +80,7 @@ public class menuClinica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistroActionPerformed
-      exp = new Expedient(this,true);
+      exp = new FormPersonales(this,true);
       exp.setVisible(true);
     }//GEN-LAST:event_BtnRegistroActionPerformed
 
@@ -86,7 +89,7 @@ public class menuClinica extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnConsultaActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        new ActualizarHuella(this, true).setVisible(true);
+        new FormBuscarDatos(this, true).setVisible(true);
     }//GEN-LAST:event_btnActualizarActionPerformed
     
    
@@ -107,20 +110,21 @@ public class menuClinica extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menuClinica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menuClinica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menuClinica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menuClinica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menuClinica().setVisible(true);
+                new FormMenu().setVisible(true);
             }
         });
     }
@@ -130,5 +134,6 @@ public class menuClinica extends javax.swing.JFrame {
     private javax.swing.JButton BtnRegistro;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelTitu;
     // End of variables declaration//GEN-END:variables
 }
