@@ -27,6 +27,7 @@ public class FormPersonales extends javax.swing.JDialog {
     Frame menu;
     public FormPersonales(Frame parent, boolean modal) {
         super(parent, modal);
+        this.setUndecorated(true);
         initComponents();
         asignarExpediente(); 
         this.setLocationRelativeTo(null);
@@ -47,7 +48,6 @@ public class FormPersonales extends javax.swing.JDialog {
                         textExp.setText("1");
                         
                     else{
-                    System.out.println(rs.getString(1));
                     int exp = new Integer(rs.getString(1)) + 1;
                      textExp.setText(""+exp);
                     }
@@ -74,6 +74,7 @@ public class FormPersonales extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         textNombre = new javax.swing.JTextField();
         textEdad = new javax.swing.JTextField();
+        BtnCerrar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         comboSexo = new javax.swing.JComboBox();
@@ -87,6 +88,7 @@ public class FormPersonales extends javax.swing.JDialog {
         lbVacioSexo = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -94,7 +96,7 @@ public class FormPersonales extends javax.swing.JDialog {
         jLabel9.setForeground(new java.awt.Color(204, 0, 0));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Registro de datos personales del paciente");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 550, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 550, -1));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Expediente ");
@@ -114,7 +116,6 @@ public class FormPersonales extends javax.swing.JDialog {
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 175, -1, -1));
 
         textNombre.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
-        textNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -130,7 +131,6 @@ public class FormPersonales extends javax.swing.JDialog {
         getContentPane().add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 420, 30));
 
         textEdad.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
-        textEdad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textEdad.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textEdad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -145,6 +145,15 @@ public class FormPersonales extends javax.swing.JDialog {
         });
         getContentPane().add(textEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 50, 30));
 
+        BtnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar1.jpg"))); // NOI18N
+        BtnCerrar.setContentAreaFilled(false);
+        BtnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCerrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, 30, 30));
+
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Edad");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 225, -1, -1));
@@ -158,7 +167,6 @@ public class FormPersonales extends javax.swing.JDialog {
         getContentPane().add(comboSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, -1, -1));
 
         textDireccion.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
-        textDireccion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textDireccion.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -192,7 +200,6 @@ public class FormPersonales extends javax.swing.JDialog {
 
         textCP.setBackground(java.awt.SystemColor.info);
         textCP.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
-        textCP.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textCP.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textCP.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -208,7 +215,6 @@ public class FormPersonales extends javax.swing.JDialog {
         getContentPane().add(textCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 320, 100, 30));
 
         textMunDel.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
-        textMunDel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textMunDel.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textMunDel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -233,7 +239,7 @@ public class FormPersonales extends javax.swing.JDialog {
         getContentPane().add(lbVacioSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, -1, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoCliniexp.jpg"))); // NOI18N
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 410));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -309,6 +315,10 @@ public class FormPersonales extends javax.swing.JDialog {
     private void textCPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCPKeyReleased
         ctrlArriba(evt);
     }//GEN-LAST:event_textCPKeyReleased
+
+    private void BtnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCerrarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_BtnCerrarActionPerformed
  
     private void camposNulos()
     {
@@ -384,48 +394,9 @@ public class FormPersonales extends javax.swing.JDialog {
         if(e.getKeyCode() == KeyEvent.VK_CONTROL)
             pres = false;
     }
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormPersonales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormPersonales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormPersonales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormPersonales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                FormPersonales dialog = new FormPersonales(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCerrar;
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JComboBox comboSexo;
     private javax.swing.JLabel jLabel1;

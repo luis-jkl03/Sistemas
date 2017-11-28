@@ -107,11 +107,12 @@ public class Verificacion extends FormCaptura {
                 getBtnGuardar().setEnabled(false);
                 int op = JOptionPane.showConfirmDialog(this, "No se ha encontrado la huella, ¿Desea intentar nuevamente?", 
                         "Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-                if(op == JOptionPane.YES_OPTION){
+                if(op == JOptionPane.YES_OPTION || op == JOptionPane.CLOSED_OPTION){
+                    getLbHuella().setIcon(null);
                     getCapturer().startCapture();
                 }
                 else if(op == JOptionPane.NO_OPTION){
-                    this.dispose();
+                    this.hide();
                 }
             }
         } catch (SQLException ex) {

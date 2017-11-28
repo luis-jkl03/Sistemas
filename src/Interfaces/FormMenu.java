@@ -11,9 +11,9 @@ public class FormMenu extends javax.swing.JFrame {
      FormCaptura cap=null;
      
     public FormMenu() {
+        this.setUndecorated(true);
         initComponents();
-        this.setLocationRelativeTo(null);
-                     
+        this.setLocationRelativeTo(null);                
     }
           
     @SuppressWarnings("unchecked")
@@ -23,6 +23,7 @@ public class FormMenu extends javax.swing.JFrame {
         BtnRegistro = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         BtnConsulta = new javax.swing.JButton();
+        BtnCerrar = new javax.swing.JButton();
         jLabelTitu = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -67,14 +68,23 @@ public class FormMenu extends javax.swing.JFrame {
         });
         getContentPane().add(BtnConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, -1, -1));
 
+        BtnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar1.jpg"))); // NOI18N
+        BtnCerrar.setContentAreaFilled(false);
+        BtnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCerrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 0, 30, 30));
+
         jLabelTitu.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabelTitu.setForeground(new java.awt.Color(204, 0, 0));
         jLabelTitu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitu.setText("MENU PRINCIPAL");
         getContentPane().add(jLabelTitu, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 750, 40));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoClini2.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 550));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fmenu.jpg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 560));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -91,6 +101,10 @@ public class FormMenu extends javax.swing.JFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         new FormBuscarDatos(this, true).setVisible(true);
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void BtnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCerrarActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_BtnCerrarActionPerformed
     
    
     /**
@@ -130,6 +144,7 @@ public class FormMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCerrar;
     private javax.swing.JButton BtnConsulta;
     private javax.swing.JButton BtnRegistro;
     private javax.swing.JButton btnActualizar;
