@@ -260,6 +260,7 @@ public class FormCaptura extends javax.swing.JDialog {
         textExp.setEditable(false);
         textExp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         textExp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textExp.setText("1");
         textExp.setToolTipText("");
         textExp.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textExp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -268,6 +269,7 @@ public class FormCaptura extends javax.swing.JDialog {
         textNombre.setEditable(false);
         textNombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         textNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textNombre.setText("Luis Javier");
         textNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         textNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -312,8 +314,8 @@ public class FormCaptura extends javax.swing.JDialog {
     }//GEN-LAST:event_textNombreActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        textExp.setText("19");
-        textNombre.setText("LA HERMOSA SELENA");
+        textExp.setText("1");
+        textNombre.setText("LUIS JAVIER");
         btnGuardar.setEnabled(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
