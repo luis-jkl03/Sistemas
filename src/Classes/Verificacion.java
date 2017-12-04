@@ -46,7 +46,7 @@ public class Verificacion extends FormCaptura {
 		super.init();
 		this.setTitle("Control de acceso");
                 getjLabelTitu().setText("Busqueda de paciente");    
-                getBtnGuardar().setText("Ingresar");
+                getBtnGuardar().setText("Continuar");
                 getBtnGuardar().setEnabled(false);
                 getjScrollPane1().setVisible(false);
                 getBtnGuardar().addActionListener(new ActionListener()                                

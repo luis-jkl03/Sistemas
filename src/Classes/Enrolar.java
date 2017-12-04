@@ -38,8 +38,7 @@ public class Enrolar extends FormCaptura {
     
     
     public Enrolar(Vector vector, Frame menu, Dialog personales)
-    {
-        
+    {    
         super(menu);
         //init();
         this.vector = vector;        
@@ -122,14 +121,15 @@ public class Enrolar extends FormCaptura {
             
             try {
                 con = new ConexionBase().getConection();
-                pst = con.prepareStatement("INSERT INTO PERPACIENTE VALUES(?,?,?,?,?,?,?)");
+                pst = con.prepareStatement("INSERT INTO PERPACIENTE VALUES(?,?,?,?,?,?,?,?)");
                 pst.setString(1, (String) vector.get(1));
                 pst.setInt(2, Integer.parseInt((String) vector.get(2)));
                 pst.setString(3, (String) vector.get(3));
                 pst.setString(4, (String) vector.get(4));
                 pst.setString(5, (String) vector.get(5));
                 pst.setString(6, (String) vector.get(6));
-                pst.setDate(7, new Fechas().fecha());
+                pst.setString(7, (String) vector.get(7));
+                pst.setDate(8, new Fechas().fecha());
                 pst.execute();         
                                 
             } catch (SQLException e) {
@@ -173,6 +173,7 @@ public class Enrolar extends FormCaptura {
             Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ocurrio un error al registrar, verificar la informacion","Aviso",JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
+            Logger.getLogger(Enrolar.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ocurrio un error al registrar, verificar la informacion","Aviso",JOptionPane.ERROR_MESSAGE);
         } finally{
                 if(pst != null)

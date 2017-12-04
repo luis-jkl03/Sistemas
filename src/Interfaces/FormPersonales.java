@@ -79,13 +79,17 @@ public class FormPersonales extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         comboSexo = new javax.swing.JComboBox();
         textDireccion = new javax.swing.JTextField();
+        btnSiguiente1 = new javax.swing.JButton();
         btnSiguiente = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        textTelefono = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         textCP = new javax.swing.JTextField();
         textMunDel = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         lbVacioSexo = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -100,7 +104,7 @@ public class FormPersonales extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Expediente ");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 125, -1, 20));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, 20));
 
         textExp.setEditable(false);
         textExp.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
@@ -109,11 +113,11 @@ public class FormPersonales extends javax.swing.JDialog {
         textExp.setAutoscrolls(false);
         textExp.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textExp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(textExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 80, 32));
+        getContentPane().add(textExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 80, 32));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Nombre ");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 175, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         textNombre.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
         textNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
@@ -128,7 +132,7 @@ public class FormPersonales extends javax.swing.JDialog {
                 textNombreKeyTyped(evt);
             }
         });
-        getContentPane().add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 420, 30));
+        getContentPane().add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 420, 30));
 
         textEdad.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
         textEdad.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
@@ -181,6 +185,15 @@ public class FormPersonales extends javax.swing.JDialog {
         });
         getContentPane().add(textDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 510, 30));
 
+        btnSiguiente1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnSiguiente1.setText("Regresar");
+        btnSiguiente1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguiente1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSiguiente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 390, -1, 40));
+
         btnSiguiente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnSiguiente.setText("Siguiente");
         btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
@@ -188,15 +201,35 @@ public class FormPersonales extends javax.swing.JDialog {
                 btnSiguienteActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 360, -1, 40));
+        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 320, -1, 40));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("Direccion");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 275, -1, -1));
 
+        jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel11.setText("Teléfono");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
+
+        textTelefono.setBackground(java.awt.SystemColor.info);
+        textTelefono.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
+        textTelefono.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
+        textTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textTelefonoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textTelefonoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textTelefonoKeyTyped(evt);
+            }
+        });
+        getContentPane().add(textTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 190, 30));
+
         jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel7.setText("C.P");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 328, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 380, -1, -1));
 
         textCP.setBackground(java.awt.SystemColor.info);
         textCP.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
@@ -212,7 +245,7 @@ public class FormPersonales extends javax.swing.JDialog {
                 textCPKeyTyped(evt);
             }
         });
-        getContentPane().add(textCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 320, 100, 30));
+        getContentPane().add(textCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 370, 100, 30));
 
         textMunDel.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
         textMunDel.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
@@ -227,7 +260,7 @@ public class FormPersonales extends javax.swing.JDialog {
                 textMunDelKeyTyped(evt);
             }
         });
-        getContentPane().add(textMunDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, 280, 30));
+        getContentPane().add(textMunDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, 390, 30));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setText("Delegacion / Municipio");
@@ -238,6 +271,12 @@ public class FormPersonales extends javax.swing.JDialog {
         lbVacioSexo.setText("*");
         getContentPane().add(lbVacioSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, -1, 30));
 
+        jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 102, 0));
+        jLabel10.setText("Apellido P. Apellido M. Nombre(s)");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, -1, -1));
+
+        jLabel8.setForeground(new java.awt.Color(255, 153, 51));
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoCliniexp.jpg"))); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 470));
 
@@ -270,7 +309,7 @@ public class FormPersonales extends javax.swing.JDialog {
     }//GEN-LAST:event_textNombreKeyTyped
 
     private void textEdadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textEdadKeyTyped
-        restringir(evt, 2);
+        restringir(evt, 3);
         soloNumeros(evt);
     }//GEN-LAST:event_textEdadKeyTyped
 
@@ -317,8 +356,31 @@ public class FormPersonales extends javax.swing.JDialog {
     }//GEN-LAST:event_textCPKeyReleased
 
     private void BtnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCerrarActionPerformed
-        this.dispose();
+        int op = JOptionPane.showConfirmDialog(this, "La información no se ha guardado, ¿desea continuar?","Atención",
+                JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+        if(op == JOptionPane.YES_OPTION)
+            this.dispose();
     }//GEN-LAST:event_BtnCerrarActionPerformed
+
+    private void textTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textTelefonoKeyPressed
+        restringirTeclas(evt);
+    }//GEN-LAST:event_textTelefonoKeyPressed
+
+    private void textTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textTelefonoKeyReleased
+        ctrlArriba(evt);
+    }//GEN-LAST:event_textTelefonoKeyReleased
+
+    private void textTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textTelefonoKeyTyped
+        soloNumeros(evt);
+        restringir(evt, 10);
+    }//GEN-LAST:event_textTelefonoKeyTyped
+
+    private void btnSiguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguiente1ActionPerformed
+        int op = JOptionPane.showConfirmDialog(this, "La información no se ha guardado, ¿desea continuar?","Atención",
+                JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+        if(op == JOptionPane.YES_OPTION)
+                this.dispose();
+    }//GEN-LAST:event_btnSiguiente1ActionPerformed
  
     private void camposNulos()
     {
@@ -333,13 +395,24 @@ public class FormPersonales extends javax.swing.JDialog {
         else textDireccion.setBorder(blueBord);
         if(textMunDel.getText().isEmpty()) textMunDel.setBorder(redBord);
         else textMunDel.setBorder(blueBord);
-        if(textCP.getText().isEmpty()) textCP.setBorder(redBord);
+        if(textTelefono.getText().isEmpty()||textTelefono.getText().length() < 10) textTelefono.setBorder(redBord);
+        else textTelefono.setBorder(blueBord);
+        if(textCP.getText().isEmpty()||textCP.getText().length() < 5) textCP.setBorder(redBord);
         else textCP.setBorder(blueBord);
         if(comboSexo.getSelectedIndex() == 0) lbVacioSexo.setVisible(true);
         else lbVacioSexo.setVisible(false);
         if(textNombre.getText().isEmpty()||textCP.getText().isEmpty()||textDireccion.getText().isEmpty()||
            textEdad.getText().isEmpty()||comboSexo.getSelectedItem().equals(" ")||textMunDel.getText().isEmpty()){    
-            JOptionPane.showMessageDialog(this,"Favor de llenar todos los campos","Atención",JOptionPane.WARNING_MESSAGE);                   
+            JOptionPane.showMessageDialog(this,"Favor de llenar todos los campos","Atención",JOptionPane.WARNING_MESSAGE);  
+            return;
+        }
+        else if(textTelefono.getText().length() < 10){
+            JOptionPane.showMessageDialog(this,"El telefono debe ser de 10 digitos","Atención",JOptionPane.ERROR_MESSAGE);  
+            return;
+        }
+        else if(textCP.getText().length() < 5){
+            JOptionPane.showMessageDialog(this,"El codigo postal debe ser de 5 digitos","Atención",JOptionPane.ERROR_MESSAGE);  
+            return;
         }
         else {
             Enrolar enrolar = new Enrolar(llenarVector(), menu, this);  
@@ -355,6 +428,7 @@ public class FormPersonales extends javax.swing.JDialog {
         vector.add(comboSexo.getSelectedItem().toString());
         vector.add(textDireccion.getText().toUpperCase());
         vector.add(textMunDel.getText().toUpperCase());
+        vector.add(textTelefono.getText());
         vector.add(textCP.getText());
         
         return vector;
@@ -398,8 +472,11 @@ public class FormPersonales extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCerrar;
     private javax.swing.JButton btnSiguiente;
+    private javax.swing.JButton btnSiguiente1;
     private javax.swing.JComboBox comboSexo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -415,5 +492,6 @@ public class FormPersonales extends javax.swing.JDialog {
     private javax.swing.JTextField textExp;
     private javax.swing.JTextField textMunDel;
     private javax.swing.JTextField textNombre;
+    private javax.swing.JTextField textTelefono;
     // End of variables declaration//GEN-END:variables
 }

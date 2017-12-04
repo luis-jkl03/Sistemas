@@ -18,12 +18,16 @@ import com.digitalpersona.onetouch.capture.event.DPFPSensorEvent;
 import com.digitalpersona.onetouch.processing.DPFPFeatureExtraction;
 import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -34,6 +38,7 @@ public class FormCaptura extends javax.swing.JDialog {
 
      public FormCaptura(java.awt.Frame parent){
        super(parent, true);
+       setUndecorated(true);
        initComponents();            
        this.setLocationRelativeTo(null);  
          setResizable(false);
@@ -48,8 +53,10 @@ public class FormCaptura extends javax.swing.JDialog {
          });
         //pack();
          setSize(jlabelLTitulo.getWidth(), jlabelLTitulo.getHeight());
+        
+         repaint();
    }
-         
+     
      public JLabel getjLabelTitu() {
         return jLabelTitu;
     }
@@ -225,6 +232,8 @@ public class FormCaptura extends javax.swing.JDialog {
         jScroll = new javax.swing.JScrollPane();
         textEstados = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
+        BtnCerrar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jlabelLTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -255,7 +264,7 @@ public class FormCaptura extends javax.swing.JDialog {
 
         btnGuardar.setFont(new java.awt.Font("Calisto MT", 0, 18)); // NOI18N
         btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 340, -1, -1));
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 340, -1, -1));
 
         textExp.setEditable(false);
         textExp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -303,8 +312,26 @@ public class FormCaptura extends javax.swing.JDialog {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 263, -1, 40));
 
+        BtnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar1.jpg"))); // NOI18N
+        BtnCerrar.setContentAreaFilled(false);
+        BtnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCerrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, 30, 30));
+
+        jButton2.setFont(new java.awt.Font("Calisto MT", 0, 18)); // NOI18N
+        jButton2.setText("Regresar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 340, -1, -1));
+
         jlabelLTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoClinihuella.jpg"))); // NOI18N
-        getContentPane().add(jlabelLTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 430));
+        getContentPane().add(jlabelLTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -319,16 +346,33 @@ public class FormCaptura extends javax.swing.JDialog {
         btnGuardar.setEnabled(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void BtnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCerrarActionPerformed
+        int op = JOptionPane.showConfirmDialog(this, "Volvera a la pantalla anterior, ¿desea continuar?","Atención",
+            JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+        if(op == JOptionPane.YES_OPTION)
+        this.dispose();
+    }//GEN-LAST:event_BtnCerrarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int op = JOptionPane.showConfirmDialog(this, "Volvera a la pantalla anterior, ¿desea continuar?","Atención",
+            JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+        if(op == JOptionPane.YES_OPTION)
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     @Override
     public void dispose(){
         super.dispose();
         stop();
     }
+    ImageIcon fondo = new ImageIcon(this.getClass().getResource("/Imagenes/fondoCliniexp.jpg"));
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCerrar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JTextField colorEstadoLector;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelTitu;
