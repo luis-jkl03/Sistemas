@@ -1,4 +1,3 @@
-
 package Interfaces;
 
 import com.digitalpersona.onetouch.DPFPCaptureFeedback;
@@ -18,8 +17,6 @@ import com.digitalpersona.onetouch.capture.event.DPFPSensorEvent;
 import com.digitalpersona.onetouch.processing.DPFPFeatureExtraction;
 import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -27,7 +24,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -55,6 +51,7 @@ public class FormCaptura extends javax.swing.JDialog {
          setSize(jlabelLTitulo.getWidth(), jlabelLTitulo.getHeight());
         
          repaint();
+         btnPruebas.setVisible(false);
    }
      
      public JLabel getjLabelTitu() {
@@ -181,14 +178,12 @@ public class FormCaptura extends javax.swing.JDialog {
 
 	protected void process(DPFPSample sample)
 	{
-		// Draw fingerprint sample image.
 		drawPicture(convertSampleToBitmap(sample));
 	}
 
 	protected void start()
 	{
 		capturer.startCapture();
-		//setPrompt("Se ha empezado a usar el lector");
 	}
 
 	protected void stop()
@@ -214,8 +209,6 @@ public class FormCaptura extends javax.swing.JDialog {
 			return null;
 		}
 	}
-
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -231,7 +224,7 @@ public class FormCaptura extends javax.swing.JDialog {
         colorEstadoLector = new javax.swing.JTextField();
         jScroll = new javax.swing.JScrollPane();
         textEstados = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        btnPruebas = new javax.swing.JButton();
         BtnCerrar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jlabelLTitulo = new javax.swing.JLabel();
@@ -242,10 +235,10 @@ public class FormCaptura extends javax.swing.JDialog {
         lbEdoLector.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         getContentPane().add(lbEdoLector, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 265, 240, 20));
 
-        jLabelTitu.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
-        jLabelTitu.setForeground(new java.awt.Color(204, 0, 0));
+        jLabelTitu.setFont(new java.awt.Font("AR DECODE", 1, 36)); // NOI18N
+        jLabelTitu.setForeground(new java.awt.Color(102, 51, 0));
         jLabelTitu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        getContentPane().add(jLabelTitu, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 490, 40));
+        getContentPane().add(jLabelTitu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 680, 60));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Expediente ");
@@ -269,7 +262,6 @@ public class FormCaptura extends javax.swing.JDialog {
         textExp.setEditable(false);
         textExp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         textExp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textExp.setText("1");
         textExp.setToolTipText("");
         textExp.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textExp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -278,7 +270,6 @@ public class FormCaptura extends javax.swing.JDialog {
         textNombre.setEditable(false);
         textNombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         textNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textNombre.setText("Luis Javier");
         textNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         textNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -304,13 +295,13 @@ public class FormCaptura extends javax.swing.JDialog {
 
         getContentPane().add(jScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 330, 30));
 
-        jButton1.setText("Habilitar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnPruebas.setText("Habilitar");
+        btnPruebas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnPruebasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 263, -1, 40));
+        getContentPane().add(btnPruebas, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 263, -1, 40));
 
         BtnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar1.jpg"))); // NOI18N
         BtnCerrar.setContentAreaFilled(false);
@@ -319,7 +310,7 @@ public class FormCaptura extends javax.swing.JDialog {
                 BtnCerrarActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, 30, 30));
+        getContentPane().add(BtnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 2, 23, 27));
 
         jButton2.setFont(new java.awt.Font("Calisto MT", 0, 18)); // NOI18N
         jButton2.setText("Regresar");
@@ -330,8 +321,8 @@ public class FormCaptura extends javax.swing.JDialog {
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 340, -1, -1));
 
-        jlabelLTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoClinihuella.jpg"))); // NOI18N
-        getContentPane().add(jlabelLTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 430));
+        jlabelLTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/focapt.jpg"))); // NOI18N
+        getContentPane().add(jlabelLTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -340,11 +331,11 @@ public class FormCaptura extends javax.swing.JDialog {
 
     }//GEN-LAST:event_textNombreActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnPruebasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPruebasActionPerformed
         textExp.setText("1");
         textNombre.setText("LUIS JAVIER");
         btnGuardar.setEnabled(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnPruebasActionPerformed
 
     private void BtnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCerrarActionPerformed
         int op = JOptionPane.showConfirmDialog(this, "Volvera a la pantalla anterior, ¿desea continuar?","Atención",
@@ -365,13 +356,12 @@ public class FormCaptura extends javax.swing.JDialog {
         super.dispose();
         stop();
     }
-    ImageIcon fondo = new ImageIcon(this.getClass().getResource("/Imagenes/fondoCliniexp.jpg"));
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCerrar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnPruebas;
     private javax.swing.JTextField colorEstadoLector;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -25,8 +25,8 @@ public class FormPersonales extends javax.swing.JDialog {
 
     ConexionBase conexion;
     Frame menu;
-    public FormPersonales(Frame parent, boolean modal) {
-        super(parent, modal);
+    public FormPersonales(Frame parent) {
+        super(parent, true);
         this.setUndecorated(true);
         initComponents();
         asignarExpediente(); 
@@ -96,8 +96,8 @@ public class FormPersonales extends javax.swing.JDialog {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel9.setFont(new java.awt.Font("Gadugi", 1, 28)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel9.setFont(new java.awt.Font("AR DECODE", 1, 36)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(102, 51, 0));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Registro de datos personales del paciente");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 550, -1));
@@ -274,7 +274,7 @@ public class FormPersonales extends javax.swing.JDialog {
         jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 102, 0));
         jLabel10.setText("Apellido P. Apellido M. Nombre(s)");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, -1, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, -1, -1));
 
         jLabel8.setForeground(new java.awt.Color(255, 153, 51));
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoCliniexp.jpg"))); // NOI18N

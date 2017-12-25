@@ -23,8 +23,9 @@ public class FormBuscarDatos extends javax.swing.JDialog {
     Vector nombres;
     int tam;
     boolean pres;
-    public FormBuscarDatos(Frame parent, boolean modal) {
-        super(parent, modal);
+    public FormBuscarDatos(Frame parent) {
+        super(parent, true);
+        setUndecorated(true);
         initComponents();
         this.parent = parent;
         setLocationRelativeTo(null);
@@ -49,9 +50,11 @@ public class FormBuscarDatos extends javax.swing.JDialog {
         textExpediente = new javax.swing.JTextField();
         textNombre = new javax.swing.JTextField();
         btnContinuar = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        BtnCerrar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 102));
@@ -64,7 +67,7 @@ public class FormBuscarDatos extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Busqueda");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 80, 32));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 80, 32));
 
         textBuscar.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
         textBuscar.setToolTipText("Busqueda por expediente solo permite escribir numeros");
@@ -79,7 +82,7 @@ public class FormBuscarDatos extends javax.swing.JDialog {
                 textBuscarKeyTyped(evt);
             }
         });
-        getContentPane().add(textBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 299, 30));
+        getContentPane().add(textBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 299, 30));
 
         radioNombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         radioNombre.setText("Nombre");
@@ -89,7 +92,7 @@ public class FormBuscarDatos extends javax.swing.JDialog {
                 radioNombreActionPerformed(evt);
             }
         });
-        getContentPane().add(radioNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 130, -1, -1));
+        getContentPane().add(radioNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 180, -1, -1));
 
         radioExp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         radioExp.setSelected(true);
@@ -100,15 +103,15 @@ public class FormBuscarDatos extends javax.swing.JDialog {
                 radioExpActionPerformed(evt);
             }
         });
-        getContentPane().add(radioExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 130, -1, -1));
+        getContentPane().add(radioExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 180, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Expediente");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 80, 32));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 80, 32));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("Nombre");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 60, 32));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 60, 32));
 
         scrollPaneLista.setPreferredSize(new java.awt.Dimension(1, 128));
 
@@ -138,7 +141,7 @@ public class FormBuscarDatos extends javax.swing.JDialog {
         });
         scrollPaneLista.setViewportView(lista);
 
-        getContentPane().add(scrollPaneLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 300, -1));
+        getContentPane().add(scrollPaneLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 300, -1));
 
         textExpediente.setEditable(false);
         textExpediente.setBackground(new java.awt.Color(204, 204, 255));
@@ -146,7 +149,7 @@ public class FormBuscarDatos extends javax.swing.JDialog {
         textExpediente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textExpediente.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textExpediente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(textExpediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 100, 30));
+        getContentPane().add(textExpediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 100, 30));
 
         textNombre.setEditable(false);
         textNombre.setBackground(new java.awt.Color(204, 204, 255));
@@ -154,7 +157,7 @@ public class FormBuscarDatos extends javax.swing.JDialog {
         textNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 299, 30));
+        getContentPane().add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 299, 30));
 
         btnContinuar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnContinuar.setText("Continuar");
@@ -165,7 +168,17 @@ public class FormBuscarDatos extends javax.swing.JDialog {
                 btnContinuarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 180, 110, 30));
+        getContentPane().add(btnContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 230, 110, 30));
+
+        btnRegresar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnRegresar.setText("Regresar");
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 110, 30));
 
         btnBuscar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnBuscar.setText("Buscar");
@@ -175,17 +188,23 @@ public class FormBuscarDatos extends javax.swing.JDialog {
                 btnBuscarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 180, 110, 30));
-
-        jLabel9.setFont(new java.awt.Font("Gadugi", 1, 28)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Busqueda de datos");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 670, -1));
+        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 230, 110, 30));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Buscar por:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, -1, -1));
+
+        BtnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar1.jpg"))); // NOI18N
+        BtnCerrar.setContentAreaFilled(false);
+        BtnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCerrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 30, 30));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondobupac.jpg"))); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 380));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -402,6 +421,20 @@ public class FormBuscarDatos extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_textBuscarKeyPressed
 
+    private void BtnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCerrarActionPerformed
+        int op = JOptionPane.showConfirmDialog(this, "Volvera al menu principal, ¿desea continuar?","Atención",
+                JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+        if(op == JOptionPane.YES_OPTION)
+            this.dispose();
+    }//GEN-LAST:event_BtnCerrarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        int op = JOptionPane.showConfirmDialog(this, "Volvera al menu principal, ¿desea continuar?","Atención",
+                JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+        if(op == JOptionPane.YES_OPTION)
+            this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
     public Vector rellenarNombres(){
         Connection con = null;
         PreparedStatement pst = null;
@@ -436,13 +469,15 @@ public class FormBuscarDatos extends javax.swing.JDialog {
     boolean arriba = false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCerrar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnContinuar;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JList lista;
     private javax.swing.JRadioButton radioExp;
     private javax.swing.JRadioButton radioNombre;

@@ -43,7 +43,8 @@ public class FormMedicos extends javax.swing.JDialog {
     }
     
     private String[] comboBoxOpciones(){
-        String[] opciones = {"","Pediatria","Ginecologia","Cardiologia","Nutriologia","Endocrinologia"};
+        String[] opciones = {"","Pediatría","Ginecología","Endocrinología","Dermatología","Cardiología",
+            "Nutriología","Oncología","Neurología","Gastroenterología","Oftamoligía"};
         return opciones;
     }
     
@@ -202,6 +203,7 @@ public class FormMedicos extends javax.swing.JDialog {
         jLabelTitu = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnRegresar = new javax.swing.JButton();
         btnNuevaConsulta = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
@@ -252,12 +254,12 @@ public class FormMedicos extends javax.swing.JDialog {
         jPanel2.add(lbExpediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
         textExpediente.setEditable(false);
-        textExpediente.setBackground(new java.awt.Color(153, 153, 153));
+        textExpediente.setBackground(new java.awt.Color(204, 255, 204));
         textExpediente.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
         jPanel2.add(textExpediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 120, 30));
 
         textNombre.setEditable(false);
-        textNombre.setBackground(new java.awt.Color(153, 153, 153));
+        textNombre.setBackground(new java.awt.Color(204, 255, 204));
         textNombre.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
         jPanel2.add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, 510, 30));
 
@@ -276,6 +278,12 @@ public class FormMedicos extends javax.swing.JDialog {
         textKg.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
         textKg.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textKg.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textKgKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textKgKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 textKgKeyTyped(evt);
             }
@@ -289,6 +297,12 @@ public class FormMedicos extends javax.swing.JDialog {
         textEstatura.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
         textEstatura.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textEstatura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textEstaturaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textEstaturaKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 textEstaturaKeyTyped(evt);
             }
@@ -297,11 +311,17 @@ public class FormMedicos extends javax.swing.JDialog {
 
         lbRecomendaciones.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbRecomendaciones.setText("Resumen de consulta");
-        jPanel2.add(lbRecomendaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 180, -1, -1));
+        jPanel2.add(lbRecomendaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, -1, -1));
 
         textCintura.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
         textCintura.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textCintura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textCinturaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textCinturaKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 textCinturaKeyTyped(evt);
             }
@@ -312,19 +332,26 @@ public class FormMedicos extends javax.swing.JDialog {
         lbCintura.setText("Cintura (cm)");
         jPanel2.add(lbCintura, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
 
-        scrollPaneRecomendaciones.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
+        scrollPaneRecomendaciones.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         textRecomendaciones.setColumns(20);
         textRecomendaciones.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
         textRecomendaciones.setRows(5);
+        textRecomendaciones.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         textRecomendaciones.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textRecomendacionesKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textRecomendacionesKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 textRecomendacionesKeyTyped(evt);
             }
         });
         scrollPaneRecomendaciones.setViewportView(textRecomendaciones);
 
-        jPanel2.add(scrollPaneRecomendaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 310, 190));
+        jPanel2.add(scrollPaneRecomendaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 310, 190));
 
         lbSinDatos.setFont(new java.awt.Font("Verdana", 1, 32)); // NOI18N
         lbSinDatos.setForeground(new java.awt.Color(102, 102, 102));
@@ -358,6 +385,12 @@ public class FormMedicos extends javax.swing.JDialog {
         textGramos.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
         textGramos.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 255), null));
         textGramos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textGramosKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textGramosKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 textGramosKeyTyped(evt);
             }
@@ -406,13 +439,13 @@ public class FormMedicos extends javax.swing.JDialog {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 0, 30, 30));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 0, 25, 27));
 
-        jLabelTitu.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
-        jLabelTitu.setForeground(new java.awt.Color(204, 0, 0));
+        jLabelTitu.setFont(new java.awt.Font("AR DECODE", 1, 48)); // NOI18N
+        jLabelTitu.setForeground(new java.awt.Color(102, 51, 0));
         jLabelTitu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitu.setText("CONSULTAS DEL PACIENTE");
-        getContentPane().add(jLabelTitu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1010, 40));
+        jLabelTitu.setText("Consulta del paciente");
+        getContentPane().add(jLabelTitu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1180, 40));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("HISTORIAL DE CONSULTAS");
@@ -422,15 +455,26 @@ public class FormMedicos extends javax.swing.JDialog {
         jLabel2.setText("DATOS MEDICOS");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, -1, -1));
 
+        btnRegresar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnRegresar.setText("Regresar");
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, 200, 50));
+
         btnNuevaConsulta.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnNuevaConsulta.setText("+ Nueva consulta");
+        btnNuevaConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoMas.jpg"))); // NOI18N
+        btnNuevaConsulta.setText("Nueva consulta");
         btnNuevaConsulta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNuevaConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevaConsultaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnNuevaConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, -1, 40));
+        getContentPane().add(btnNuevaConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 400, 200, 50));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fconsultamed.jpg"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, -1));
@@ -585,6 +629,53 @@ public class FormMedicos extends javax.swing.JDialog {
             evt.consume();
         }
     }//GEN-LAST:event_textRecomendacionesKeyTyped
+
+    private void textKgKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textKgKeyPressed
+        restringirTeclas(evt);
+    }//GEN-LAST:event_textKgKeyPressed
+
+    private void textGramosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textGramosKeyPressed
+        restringirTeclas(evt);
+    }//GEN-LAST:event_textGramosKeyPressed
+
+    private void textEstaturaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textEstaturaKeyPressed
+        restringirTeclas(evt);
+    }//GEN-LAST:event_textEstaturaKeyPressed
+
+    private void textCinturaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCinturaKeyPressed
+        restringirTeclas(evt);
+    }//GEN-LAST:event_textCinturaKeyPressed
+
+    private void textRecomendacionesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textRecomendacionesKeyPressed
+        restringirTeclas(evt);
+    }//GEN-LAST:event_textRecomendacionesKeyPressed
+
+    private void textKgKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textKgKeyReleased
+        ctrlArriba(evt);
+    }//GEN-LAST:event_textKgKeyReleased
+
+    private void textGramosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textGramosKeyReleased
+        ctrlArriba(evt);
+    }//GEN-LAST:event_textGramosKeyReleased
+
+    private void textEstaturaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textEstaturaKeyReleased
+        ctrlArriba(evt);
+    }//GEN-LAST:event_textEstaturaKeyReleased
+
+    private void textCinturaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCinturaKeyReleased
+        ctrlArriba(evt);
+    }//GEN-LAST:event_textCinturaKeyReleased
+
+    private void textRecomendacionesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textRecomendacionesKeyReleased
+        ctrlArriba(evt);
+    }//GEN-LAST:event_textRecomendacionesKeyReleased
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        int op = JOptionPane.showConfirmDialog(this, "Volvera al menu principal, ¿desea continuar?","Atención",
+                JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+        if(op == JOptionPane.YES_OPTION)
+            this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void restringir(KeyEvent evt, int tam) {
         if(((JTextField)evt.getComponent()).getText().length() >= tam){
@@ -761,6 +852,7 @@ public class FormMedicos extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevaConsulta;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox comboEspecialidad;
     private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JButton jButton2;
